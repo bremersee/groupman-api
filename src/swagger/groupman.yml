@@ -341,13 +341,17 @@ definitions:
         type: "integer"
         format: "int64"
         description: "The database version number."
+      createdBy:
+        type: "string"
+        description: "The user who created the group."
       createdAt:
         type: "string"
         format: "date-time"
         description: "The creation time."
-      createdBy:
+      modifiedAt:
         type: "string"
-        description: "The user who created the group."
+        format: "date-time"
+        description: "The last modification time."
       source:
         $ref: "#/definitions/Source"
         default: "INTERNAL"
