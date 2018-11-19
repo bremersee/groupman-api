@@ -18,16 +18,16 @@ paths:
   /api/groups:
     post:
       tags:
-        - "group-controller"
+      - "group-controller"
       summary: "Create a new group."
       operationId: "createGroup"
       parameters:
-        - name: "group"
-          description: "The new group."
-          required: true
-          in: "body"
-          schema:
-            $ref: "#/definitions/Group"
+      - name: "group"
+        description: "The new group."
+        required: true
+        in: "body"
+        schema:
+          $ref: "#/definitions/Group"
       consumes:
       - "application/json"
       produces:
@@ -336,6 +336,7 @@ definitions:
     properties:
       id:
         type: "string"
+        maxLength: 255
         description: "The id of the group."
       version:
         type: "integer"
@@ -343,6 +344,7 @@ definitions:
         description: "The database version number."
       createdBy:
         type: "string"
+        maxLength: 255
         description: "The user who created the group."
       createdAt:
         type: "string"
@@ -369,11 +371,13 @@ definitions:
         description: "The members of the group."
         items:
           type: "string"
+          maxLength: 255
       owners:
         type: "array"
         description: "The owners of the group."
         items:
           type: "string"
+          maxLength: 255
     required:
     - "name"
   GroupIdList:
@@ -381,3 +385,4 @@ definitions:
     type: "array"
     items:
       type: "string"
+      maxLength: 255
