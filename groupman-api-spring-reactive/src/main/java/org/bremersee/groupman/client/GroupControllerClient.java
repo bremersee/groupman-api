@@ -18,6 +18,7 @@ package org.bremersee.groupman.client;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.bremersee.groupman.api.GroupControllerApi;
 import org.bremersee.groupman.model.Group;
 import org.springframework.http.MediaType;
@@ -122,7 +123,7 @@ public class GroupControllerClient implements GroupControllerApi {
   }
 
   @Override
-  public Flux<String> getMembershipIds() {
+  public Mono<Set<String>> getMembershipIds() {
     //noinspection unchecked
     return webClient
         .get()
@@ -130,7 +131,8 @@ public class GroupControllerClient implements GroupControllerApi {
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .bodyToMono(Set.class)
-        .flatMapIterable(set -> (Set<String>) set);
+        .flatMapIterable(set -> (Set<String>) set)
+        .collect(Collectors.toSet());
   }
 
 }

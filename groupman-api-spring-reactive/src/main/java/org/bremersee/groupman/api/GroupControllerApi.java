@@ -17,6 +17,7 @@
 package org.bremersee.groupman.api;
 
 import java.util.List;
+import java.util.Set;
 import org.bremersee.groupman.model.Group;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -43,6 +44,6 @@ public interface GroupControllerApi {
 
   Flux<Group> getMembership();
 
-  Flux<String> getMembershipIds();
+  Mono<Set<String>> getMembershipIds();
 
 }
