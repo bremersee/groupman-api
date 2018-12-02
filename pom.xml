@@ -7,11 +7,6 @@
   <groupId>org.bremersee</groupId>
   <artifactId>groupman-api</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <modules>
-    <module>groupman-model-spring</module>
-    <module>groupman-api-spring</module>
-    <module>groupman-api-spring-reactive</module>
-  </modules>
   <packaging>pom</packaging>
 
   <properties>
@@ -23,6 +18,12 @@
     <swagger-annotations.version>1.5.18</swagger-annotations.version>
     <swagger-codegen-maven-plugin.version>2.3.1</swagger-codegen-maven-plugin.version>
   </properties>
+
+  <modules>
+    <module>groupman-model-spring</module>
+    <module>groupman-api-spring</module>
+    <module>groupman-api-spring-reactive</module>
+  </modules>
 
   <developers>
     <developer>
