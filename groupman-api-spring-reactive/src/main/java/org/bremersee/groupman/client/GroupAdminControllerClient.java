@@ -19,6 +19,9 @@ package org.bremersee.groupman.client;
 import java.util.List;
 import org.bremersee.groupman.api.GroupAdminControllerApi;
 import org.bremersee.groupman.model.Group;
+import org.bremersee.web.ErrorDetectors;
+import org.bremersee.web.reactive.function.client.DefaultWebClientErrorDecoder;
+import org.bremersee.web.reactive.function.client.WebClientErrorDecoder;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -28,13 +31,24 @@ import reactor.core.publisher.Mono;
 /**
  * @author Christian Bremer
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class GroupAdminControllerClient implements GroupAdminControllerApi {
 
   private final WebClient webClient;
 
+  private final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder;
+
   public GroupAdminControllerClient(final WebClient webClient) {
+    this(webClient, null);
+  }
+
+  public GroupAdminControllerClient(
+      final WebClient webClient,
+      final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder) {
     this.webClient = webClient;
+    this.webClientErrorDecoder = webClientErrorDecoder != null
+        ? webClientErrorDecoder
+        : new DefaultWebClientErrorDecoder();
   }
 
   @Override
@@ -44,6 +58,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
         .uri("/api/admin/group")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToFlux(Group.class);
   }
 
@@ -56,6 +71,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(group))
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Group.class);
   }
 
@@ -66,6 +82,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
         .uri("/api/admin/group/{id}", groupId)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Group.class);
   }
 
@@ -78,6 +95,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(group))
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Group.class);
   }
 
@@ -87,6 +105,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
         .delete()
         .uri("/api/admin/group/{id}", groupId)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Void.class);
   }
 
@@ -97,6 +116,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
         .uri("/api/admin/group?id={ids}", ids)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToFlux(Group.class);
   }
 }

@@ -21,6 +21,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.bremersee.groupman.api.GroupControllerApi;
 import org.bremersee.groupman.model.Group;
+import org.bremersee.web.ErrorDetectors;
+import org.bremersee.web.reactive.function.client.DefaultWebClientErrorDecoder;
+import org.bremersee.web.reactive.function.client.WebClientErrorDecoder;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -30,13 +33,24 @@ import reactor.core.publisher.Mono;
 /**
  * @author Christian Bremer
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class GroupControllerClient implements GroupControllerApi {
 
   private final WebClient webClient;
 
+  private final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder;
+
   public GroupControllerClient(final WebClient webClient) {
+    this(webClient, null);
+  }
+
+  public GroupControllerClient(
+      final WebClient webClient,
+      final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder) {
     this.webClient = webClient;
+    this.webClientErrorDecoder = webClientErrorDecoder != null
+        ? webClientErrorDecoder
+        : new DefaultWebClientErrorDecoder();
   }
 
   @Override
@@ -48,6 +62,7 @@ public class GroupControllerClient implements GroupControllerApi {
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(group))
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Group.class);
   }
 
@@ -58,6 +73,7 @@ public class GroupControllerClient implements GroupControllerApi {
         .uri("/api/group/{id}", groupId)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Group.class);
   }
 
@@ -70,6 +86,7 @@ public class GroupControllerClient implements GroupControllerApi {
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(group))
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Group.class);
   }
 
@@ -79,6 +96,7 @@ public class GroupControllerClient implements GroupControllerApi {
         .delete()
         .uri("/api/group/{id}", groupId)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Void.class);
   }
 
@@ -89,6 +107,7 @@ public class GroupControllerClient implements GroupControllerApi {
         .uri("/api/group/f?id={ids}", ids)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToFlux(Group.class);
   }
 
@@ -99,6 +118,7 @@ public class GroupControllerClient implements GroupControllerApi {
         .uri("/api/group/f/editable")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToFlux(Group.class);
   }
 
@@ -109,6 +129,7 @@ public class GroupControllerClient implements GroupControllerApi {
         .uri("/api/group/f/usable")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToFlux(Group.class);
   }
 
@@ -119,6 +140,7 @@ public class GroupControllerClient implements GroupControllerApi {
         .uri("/api/group/f/membership")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToFlux(Group.class);
   }
 
@@ -130,6 +152,7 @@ public class GroupControllerClient implements GroupControllerApi {
         .uri("/api/group/f/membership-ids")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Set.class)
         .flatMapIterable(set -> (Set<String>) set)
         .collect(Collectors.toSet());

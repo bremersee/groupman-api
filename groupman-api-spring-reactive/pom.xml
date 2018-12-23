@@ -31,6 +31,10 @@
   <dependencies>
     <dependency>
       <groupId>org.bremersee</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.bremersee</groupId>
       <artifactId>common-model-spring</artifactId>
     </dependency>
     <dependency>
