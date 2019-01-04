@@ -31,6 +31,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
+ * The group controller client.
+ *
  * @author Christian Bremer
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -40,10 +42,21 @@ public class GroupControllerClient implements GroupControllerApi {
 
   private final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder;
 
+  /**
+   * Instantiates a new group controller client.
+   *
+   * @param webClient the web client
+   */
   public GroupControllerClient(final WebClient webClient) {
     this(webClient, null);
   }
 
+  /**
+   * Instantiates a new group controller client.
+   *
+   * @param webClient             the web client
+   * @param webClientErrorDecoder the web client error decoder
+   */
   public GroupControllerClient(
       final WebClient webClient,
       final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder) {

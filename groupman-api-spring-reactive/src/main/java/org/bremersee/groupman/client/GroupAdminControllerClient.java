@@ -29,6 +29,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
+ * The group admin controller client.
+ *
  * @author Christian Bremer
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -38,10 +40,21 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
 
   private final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder;
 
+  /**
+   * Instantiates a new group admin controller client.
+   *
+   * @param webClient the web client
+   */
   public GroupAdminControllerClient(final WebClient webClient) {
     this(webClient, null);
   }
 
+  /**
+   * Instantiates a new group admin controller client.
+   *
+   * @param webClient             the web client
+   * @param webClientErrorDecoder the web client error decoder
+   */
   public GroupAdminControllerClient(
       final WebClient webClient,
       final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder) {

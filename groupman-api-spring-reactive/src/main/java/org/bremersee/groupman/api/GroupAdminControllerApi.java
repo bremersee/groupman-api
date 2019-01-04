@@ -22,21 +22,59 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
+ * The group admin controller interface.
+ *
  * @author Christian Bremer
  */
 @SuppressWarnings("unused")
 public interface GroupAdminControllerApi {
 
+  /**
+   * Gets groups.
+   *
+   * @return the groups
+   */
   Flux<Group> getGroups();
 
+  /**
+   * Create group.
+   *
+   * @param group the group
+   * @return the group
+   */
   Mono<Group> createGroup(Group group);
 
+  /**
+   * Gets group by id.
+   *
+   * @param groupId the group id
+   * @return the group by id
+   */
   Mono<Group> getGroupById(String groupId);
 
+  /**
+   * Update group.
+   *
+   * @param groupId the group id
+   * @param group   the group
+   * @return the group
+   */
   Mono<Group> updateGroup(String groupId, Group group);
 
+  /**
+   * Delete group.
+   *
+   * @param groupId the group id
+   * @return the mono
+   */
   Mono<Void> deleteGroup(String groupId);
 
+  /**
+   * Gets groups by ids.
+   *
+   * @param ids the ids
+   * @return the groups by ids
+   */
   Flux<Group> getGroupsByIds(List<String> ids);
 
 }
