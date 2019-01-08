@@ -157,7 +157,7 @@
               <invokerPackage>${base-package}.invoker</invokerPackage>
               <!-- enable XML annotations inside the generated models and API (only works with
                    Java language and libraries that provide support for JSON and XML) -->
-              <withXml>true</withXml>
+              <withXml>false</withXml>
               <!-- generate the apis (true by default) -->
               <generateApis>true</generateApis>
               <!-- generate the api tests (true by default.
@@ -186,7 +186,7 @@
                 <!-- whether to include support for application/xml content type and include XML
                      annotations in the model (works with libraries that provide support for JSON
                      and XML) (Default: false) -->
-                <withXml>true</withXml>
+                <withXml>false</withXml>
                 <!-- Date library to use -->
                 <dateLibrary>java8</dateLibrary>
                 <!-- Use Java8 classes instead of third party equivalents -->
