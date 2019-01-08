@@ -14,7 +14,6 @@
 
   <properties>
     <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
-    <base-package>org.bremersee.groupman</base-package>
   </properties>
 
   <dependencyManagement>
@@ -57,18 +56,6 @@
         <includes>
           <include>**</include>
         </includes>
-      </resource>
-      <resource>
-        <directory>${project.basedir}/../src/swagger</directory>
-        <targetPath>META-INF/swagger</targetPath>
-        <filtering>false</filtering>
-        <includes>
-          <include>**</include>
-        </includes>
-        <excludes>
-          <exclude>templates</exclude>
-          <exclude>templates/**</exclude>
-        </excludes>
       </resource>
     </resources>
   </build>
