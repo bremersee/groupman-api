@@ -14,6 +14,15 @@ tags:
   description: "The group management controller for users."
 - name: "group-admin-controller"
   description: "The group management controller for administrators."
+parameters:
+  idsQueryParameter:
+    name: id
+    in: query
+    description: Group IDs
+    required: false
+    type: array
+    items:
+      type: string
 paths:
   /api/groups:
     post:
@@ -120,14 +129,7 @@ paths:
       summary: "Get groups by id."
       operationId: "getGroupsByIds"
       parameters:
-      - name: "id"
-        description: "The group IDs."
-        required: false
-        in: "query"
-        schema:
-          type: "array"
-          items:
-            type: "string"
+      - $ref: '#/parameters/idsQueryParameter'
       produces:
       - "application/json"
       responses:
@@ -306,14 +308,7 @@ paths:
       summary: "Get groups by id."
       operationId: "getGroupsByIds"
       parameters:
-      - name: "id"
-        description: "The group IDs."
-        required: false
-        in: "query"
-        schema:
-          type: "array"
-          items:
-            type: "string"
+        - $ref: '#/parameters/idsQueryParameter'
       produces:
       - "application/json"
       responses:
