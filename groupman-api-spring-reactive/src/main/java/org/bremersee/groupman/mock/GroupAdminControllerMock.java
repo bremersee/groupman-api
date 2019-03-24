@@ -32,17 +32,17 @@ import reactor.core.publisher.Mono;
 public class GroupAdminControllerMock implements GroupAdminControllerApi {
 
   @Override
-  public Flux<Group> getGroups() {
+  public Flux<Group> findGroups() {
     return Flux.just(GroupRepositoryMock.getGroups().toArray(new Group[0]));
   }
 
   @Override
-  public Mono<Group> createGroup(Group group) {
+  public Mono<Group> addGroup(Group group) {
     return Mono.justOrEmpty(GroupRepositoryMock.createGroup(group));
   }
 
   @Override
-  public Mono<Group> getGroupById(String groupId) {
+  public Mono<Group> findGroupById(String groupId) {
     Group group = GroupRepositoryMock.getGroupById(groupId);
     if (group == null) {
       throw ServiceException.notFound("Group", groupId);
@@ -51,7 +51,7 @@ public class GroupAdminControllerMock implements GroupAdminControllerApi {
   }
 
   @Override
-  public Mono<Group> updateGroup(String groupId, Group group) {
+  public Mono<Group> modifyGroup(String groupId, Group group) {
     Group newGroup = GroupRepositoryMock.updateGroup(groupId, group);
     if (newGroup == null) {
       throw ServiceException.notFound("Group", groupId);
@@ -60,13 +60,13 @@ public class GroupAdminControllerMock implements GroupAdminControllerApi {
   }
 
   @Override
-  public Mono<Void> deleteGroup(String groupId) {
+  public Mono<Void> removeGroup(String groupId) {
     GroupRepositoryMock.deleteGroup(groupId);
     return Mono.empty();
   }
 
   @Override
-  public Flux<Group> getGroupsByIds(List<String> ids) {
+  public Flux<Group> findGroupsByIds(List<String> ids) {
     return Flux.just(GroupRepositoryMock.getGroupsByIds(ids).toArray(new Group[0]));
   }
 }

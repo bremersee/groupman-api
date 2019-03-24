@@ -31,18 +31,18 @@ import org.springframework.http.ResponseEntity;
 public class GroupAdminControllerMock implements GroupAdminControllerApi {
 
   @Override
-  public ResponseEntity<Group> createGroup(@Valid Group group) {
+  public ResponseEntity<Group> addGroup(@Valid Group group) {
     return ResponseEntity.ok(GroupRepositoryMock.createGroup(group));
   }
 
   @Override
-  public ResponseEntity<Group> deleteGroup(String id) {
+  public ResponseEntity<Group> removeGroup(String id) {
     GroupRepositoryMock.deleteGroup(id);
     return ResponseEntity.ok().build();
   }
 
   @Override
-  public ResponseEntity<Group> getGroupById(String id) {
+  public ResponseEntity<Group> findGroupById(String id) {
     Group group = GroupRepositoryMock.getGroupById(id);
     if (group == null) {
       throw new NotFoundException();
@@ -56,12 +56,12 @@ public class GroupAdminControllerMock implements GroupAdminControllerApi {
   }
 
   @Override
-  public ResponseEntity<List<Group>> getGroupsByIds(@Valid List<String> ids) {
+  public ResponseEntity<List<Group>> findGroupsByIds(@Valid List<String> ids) {
     return ResponseEntity.ok(GroupRepositoryMock.getGroupsByIds(ids));
   }
 
   @Override
-  public ResponseEntity<Group> updateGroup(String id, @Valid Group group) {
+  public ResponseEntity<Group> modifyGroup(String id, @Valid Group group) {
     Group newGroup = GroupRepositoryMock.updateGroup(id, group);
     if (newGroup == null) {
       throw new NotFoundException();

@@ -30,51 +30,51 @@ import reactor.core.publisher.Mono;
 public interface GroupAdminControllerApi {
 
   /**
-   * Gets groups.
+   * Finds groups.
    *
    * @return the groups
    */
-  Flux<Group> getGroups();
+  Flux<Group> findGroups();
 
   /**
-   * Create group.
+   * Adds group.
    *
    * @param group the group
    * @return the group
    */
-  Mono<Group> createGroup(Group group);
+  Mono<Group> addGroup(Group group);
 
   /**
-   * Gets group by id.
+   * Finds group by id.
    *
    * @param groupId the group id
    * @return the group by id
    */
-  Mono<Group> getGroupById(String groupId);
+  Mono<Group> findGroupById(String groupId);
 
   /**
-   * Update group.
+   * Modifies group.
    *
    * @param groupId the group id
    * @param group   the group
    * @return the group
    */
-  Mono<Group> updateGroup(String groupId, Group group);
+  Mono<Group> modifyGroup(String groupId, Group group);
 
   /**
-   * Delete group.
+   * Removes group.
    *
    * @param groupId the group id
    * @return the mono
    */
-  Mono<Void> deleteGroup(String groupId);
+  Mono<Void> removeGroup(String groupId);
 
   /**
-   * Gets groups by ids.
+   * Finds groups by ids.
    *
    * @param ids the ids
    * @return the groups by ids
    */
-  Flux<Group> getGroupsByIds(List<String> ids);
+  Flux<Group> findGroupsByIds(List<String> ids);
 
 }

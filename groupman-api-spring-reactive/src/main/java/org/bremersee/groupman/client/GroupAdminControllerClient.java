@@ -65,7 +65,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   }
 
   @Override
-  public Flux<Group> getGroups() {
+  public Flux<Group> findGroups() {
     return webClient
         .get()
         .uri("/api/admin/group")
@@ -76,7 +76,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   }
 
   @Override
-  public Mono<Group> createGroup(final Group group) {
+  public Mono<Group> addGroup(final Group group) {
     return webClient
         .post()
         .uri("/api/admin/group")
@@ -89,7 +89,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   }
 
   @Override
-  public Mono<Group> getGroupById(final String groupId) {
+  public Mono<Group> findGroupById(final String groupId) {
     return webClient
         .get()
         .uri("/api/admin/group/{id}", groupId)
@@ -100,7 +100,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   }
 
   @Override
-  public Mono<Group> updateGroup(final String groupId, final Group group) {
+  public Mono<Group> modifyGroup(final String groupId, final Group group) {
     return webClient
         .put()
         .uri("/api/admin/group/{id}", groupId)
@@ -113,7 +113,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   }
 
   @Override
-  public Mono<Void> deleteGroup(final String groupId) {
+  public Mono<Void> removeGroup(final String groupId) {
     return webClient
         .delete()
         .uri("/api/admin/group/{id}", groupId)
@@ -123,7 +123,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   }
 
   @Override
-  public Flux<Group> getGroupsByIds(final List<String> ids) {
+  public Flux<Group> findGroupsByIds(final List<String> ids) {
     return webClient
         .get()
         .uri("/api/admin/group?id={ids}", ids)

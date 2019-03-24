@@ -10,37 +10,43 @@ info:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
-- name: "group-controller"
-  description: "The group management controller for users."
-- name: "group-admin-controller"
-  description: "The group management controller for administrators."
+  - name: "group-controller"
+    description: "The group management controller for users."
+  - name: "group-admin-controller"
+    description: "The group management controller for administrators."
 parameters:
+  idPathParameter:
+    name: "id"
+    description: "The group ID."
+    in: "path"
+    required: true
+    type: "string"
   idsQueryParameter:
-    name: id
-    in: query
-    description: Group IDs
+    name: "id"
+    description: "Group IDs"
+    in: "query"
     required: false
-    type: array
+    type: "array"
     items:
-      type: string
+      type: "string"
 paths:
   /api/groups:
     post:
       tags:
-      - "group-controller"
+        - "group-controller"
       summary: "Create a new group."
       operationId: "createGroup"
       parameters:
-      - name: "group"
-        description: "The new group."
-        required: true
-        in: "body"
-        schema:
-          $ref: "#/definitions/Group"
+        - name: "group"
+          description: "The new group."
+          required: true
+          in: "body"
+          schema:
+            $ref: "#/definitions/Group"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -49,18 +55,13 @@ paths:
   /api/groups/{id}:
     get:
       tags:
-      - "group-controller"
+        - "group-controller"
       summary: "Get a group."
       operationId: "getGroupById"
       parameters:
-      - name: "id"
-        description: "The group ID."
-        required: true
-        in: "path"
-        schema:
-          type: "string"
+        - $ref: '#/parameters/idPathParameter'
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -72,24 +73,21 @@ paths:
             $ref: "./META-INF/swagger/exception-model.yml#/definitions/RestApiException"
     put:
       tags:
-      - "group-controller"
+        - "group-controller"
       summary: "Update group."
       operationId: "updateGroup"
       parameters:
-      - name: "id"
-        description: "The group ID."
-        required: true
-        in: "path"
-      - name: "group"
-        description: "The update data."
-        required: true
-        in: "body"
-        schema:
-          $ref: "#/definitions/Group"
+        - $ref: '#/parameters/idPathParameter'
+        - name: "group"
+          description: "The update data."
+          required: true
+          in: "body"
+          schema:
+            $ref: "#/definitions/Group"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -105,14 +103,11 @@ paths:
             $ref: "./META-INF/swagger/exception-model.yml#/definitions/RestApiException"
     delete:
       tags:
-      - "group-controller"
+        - "group-controller"
       summary: "Delete group."
       operationId: "deleteGroup"
       parameters:
-      - name: "id"
-        description: "The group ID."
-        required: true
-        in: "path"
+        - $ref: '#/parameters/idPathParameter'
       responses:
         200:
           description: "OK"
@@ -125,13 +120,13 @@ paths:
   /api/groups/f:
     get:
       tags:
-      - "group-controller"
+        - "group-controller"
       summary: "Get groups by id."
       operationId: "getGroupsByIds"
       parameters:
-      - $ref: '#/parameters/idsQueryParameter'
+        - $ref: '#/parameters/idsQueryParameter'
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -142,11 +137,11 @@ paths:
   /api/groups/f/editable:
     get:
       tags:
-      - "group-controller"
+        - "group-controller"
       summary: "Get editable groups."
       operationId: "getEditableGroups"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -157,11 +152,11 @@ paths:
   /api/groups/f/usable:
     get:
       tags:
-      - "group-controller"
+        - "group-controller"
       summary: "Get usable groups."
       operationId: "getUsableGroups"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -172,11 +167,11 @@ paths:
   /api/groups/f/membership:
     get:
       tags:
-      - "group-controller"
+        - "group-controller"
       summary: "Get membership."
       operationId: "getMembership"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -187,11 +182,11 @@ paths:
   /api/groups/f/membership-ids:
     get:
       tags:
-      - "group-controller"
+        - "group-controller"
       summary: "Get membership IDs."
       operationId: "getMembershipIds"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -200,11 +195,11 @@ paths:
   /api/admin/groups:
     get:
       tags:
-      - "group-admin-controller"
+        - "group-admin-controller"
       summary: "Get all groups."
       operationId: "getGroups"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -214,20 +209,20 @@ paths:
               $ref: "#/definitions/Group"
     post:
       tags:
-      - "group-admin-controller"
-      summary: "Create a new group."
-      operationId: "createGroup"
+        - "group-admin-controller"
+      summary: "Add a new group."
+      operationId: "addGroup"
       parameters:
-      - name: "group"
-        description: "The new group."
-        required: true
-        in: "body"
-        schema:
-          $ref: "#/definitions/Group"
+        - name: "group"
+          description: "The new group."
+          required: true
+          in: "body"
+          schema:
+            $ref: "#/definitions/Group"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -236,18 +231,13 @@ paths:
   /api/admin/groups/{id}:
     get:
       tags:
-      - "group-admin-controller"
-      summary: "Get a group."
-      operationId: "getGroupById"
+        - "group-admin-controller"
+      summary: "Find a group."
+      operationId: "findGroupById"
       parameters:
-      - name: "id"
-        description: "The group ID."
-        required: true
-        in: "path"
-        schema:
-          type: "string"
+        - $ref: '#/parameters/idPathParameter'
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -259,24 +249,21 @@ paths:
             $ref: "./META-INF/swagger/exception-model.yml#/definitions/RestApiException"
     put:
       tags:
-      - "group-admin-controller"
-      summary: "Update group."
-      operationId: "updateGroup"
+        - "group-admin-controller"
+      summary: "Modify group."
+      operationId: "modifyGroup"
       parameters:
-      - name: "id"
-        description: "The group ID."
-        required: true
-        in: "path"
-      - name: "group"
-        description: "The update data."
-        required: true
-        in: "body"
-        schema:
-          $ref: "#/definitions/Group"
+        - $ref: '#/parameters/idPathParameter'
+        - name: "group"
+          description: "The modified group."
+          required: true
+          in: "body"
+          schema:
+            $ref: "#/definitions/Group"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -288,14 +275,11 @@ paths:
             $ref: "./META-INF/swagger/exception-model.yml#/definitions/RestApiException"
     delete:
       tags:
-      - "group-admin-controller"
+        - "group-admin-controller"
       summary: "Delete group."
-      operationId: "deleteGroup"
+      operationId: "removeGroup"
       parameters:
-      - name: "id"
-        description: "The group ID."
-        required: true
-        in: "path"
+        - $ref: '#/parameters/idPathParameter'
       responses:
         200:
           description: "OK"
@@ -304,13 +288,13 @@ paths:
   /api/admin/groups/f:
     get:
       tags:
-      - "group-admin-controller"
-      summary: "Get groups by id."
-      operationId: "getGroupsByIds"
+        - "group-admin-controller"
+      summary: "Find groups by id."
+      operationId: "findGroupsByIds"
       parameters:
         - $ref: '#/parameters/idsQueryParameter'
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "OK"
@@ -323,8 +307,8 @@ definitions:
     description: "The source of a group. Only administrators can use other values than 'INTERNAL'."
     type: "string"
     enum:
-    - "INTERNAL"
-    - "LDAP"
+      - "INTERNAL"
+      - "LDAP"
   Group:
     description: "A group."
     type: "object"
@@ -351,7 +335,6 @@ definitions:
         description: "The last modification time."
       source:
         $ref: "#/definitions/Source"
-        default: "INTERNAL"
       name:
         type: "string"
         description: "The name of the group."
@@ -374,7 +357,7 @@ definitions:
           type: "string"
           maxLength: 255
     required:
-    - "name"
+      - "name"
   GroupIdList:
     description: "A list with group identifiers."
     type: "array"
