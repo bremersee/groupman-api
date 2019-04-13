@@ -1,7 +1,0 @@
-{
-  "importMappings": {
-    "Group": "org.bremersee.groupman.model.Group",
-    "GroupIdList": "org.bremersee.groupman.model.GroupIdList",
-    "Source": "org.bremersee.groupman.model.Source"
-  }
-}
