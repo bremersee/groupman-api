@@ -22,6 +22,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -269,6 +270,9 @@ public class Group implements Serializable {
    */
   @ApiModelProperty(value = "The members of the group.")
   public List<String> getMembers() {
+    if (members == null) {
+      members = new ArrayList<>();
+    }
     return members;
   }
 
@@ -288,6 +292,9 @@ public class Group implements Serializable {
    */
   @ApiModelProperty(value = "The owners of the group.")
   public List<String> getOwners() {
+    if (owners == null) {
+      owners = new ArrayList<>();
+    }
     return owners;
   }
 
