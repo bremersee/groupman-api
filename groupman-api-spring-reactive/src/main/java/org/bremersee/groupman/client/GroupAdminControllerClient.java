@@ -68,7 +68,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   public Flux<Group> findGroups() {
     return webClient
         .get()
-        .uri("/api/admin/group")
+        .uri("/api/admin/groups")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
@@ -79,7 +79,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   public Mono<Group> addGroup(final Group group) {
     return webClient
         .post()
-        .uri("/api/admin/group")
+        .uri("/api/admin/groups")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(group))
@@ -92,7 +92,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   public Mono<Group> findGroupById(final String groupId) {
     return webClient
         .get()
-        .uri("/api/admin/group/{id}", groupId)
+        .uri("/api/admin/groups/{id}", groupId)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
@@ -103,7 +103,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   public Mono<Group> modifyGroup(final String groupId, final Group group) {
     return webClient
         .put()
-        .uri("/api/admin/group/{id}", groupId)
+        .uri("/api/admin/groups/{id}", groupId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(group))
@@ -116,7 +116,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   public Mono<Void> removeGroup(final String groupId) {
     return webClient
         .delete()
-        .uri("/api/admin/group/{id}", groupId)
+        .uri("/api/admin/groups/{id}", groupId)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Void.class);
@@ -126,7 +126,7 @@ public class GroupAdminControllerClient implements GroupAdminControllerApi {
   public Flux<Group> findGroupsByIds(final List<String> ids) {
     return webClient
         .get()
-        .uri("/api/admin/group?id={ids}", ids)
+        .uri("/api/admin/groups?id={ids}", ids)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)

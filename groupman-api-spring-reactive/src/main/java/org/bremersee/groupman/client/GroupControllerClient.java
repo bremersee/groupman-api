@@ -70,7 +70,7 @@ public class GroupControllerClient implements GroupControllerApi {
   public Mono<Group> createGroup(final Group group) {
     return webClient
         .post()
-        .uri("/api/group")
+        .uri("/api/groups")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(group))
@@ -83,7 +83,7 @@ public class GroupControllerClient implements GroupControllerApi {
   public Mono<Group> getGroupById(final String groupId) {
     return webClient
         .get()
-        .uri("/api/group/{id}", groupId)
+        .uri("/api/groups/{id}", groupId)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
@@ -94,7 +94,7 @@ public class GroupControllerClient implements GroupControllerApi {
   public Mono<Group> updateGroup(final String groupId, final Group group) {
     return webClient
         .put()
-        .uri("/api/group/{id}", groupId)
+        .uri("/api/groups/{id}", groupId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(group))
@@ -107,7 +107,7 @@ public class GroupControllerClient implements GroupControllerApi {
   public Mono<Void> deleteGroup(final String groupId) {
     return webClient
         .delete()
-        .uri("/api/group/{id}", groupId)
+        .uri("/api/groups/{id}", groupId)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Void.class);
@@ -117,7 +117,7 @@ public class GroupControllerClient implements GroupControllerApi {
   public Flux<Group> getGroupsByIds(final List<String> ids) {
     return webClient
         .get()
-        .uri("/api/group/f?id={ids}", ids)
+        .uri("/api/groups/f?id={ids}", ids)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
@@ -128,7 +128,7 @@ public class GroupControllerClient implements GroupControllerApi {
   public Flux<Group> getEditableGroups() {
     return webClient
         .get()
-        .uri("/api/group/f/editable")
+        .uri("/api/groups/f/editable")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
@@ -139,7 +139,7 @@ public class GroupControllerClient implements GroupControllerApi {
   public Flux<Group> getUsableGroups() {
     return webClient
         .get()
-        .uri("/api/group/f/usable")
+        .uri("/api/groups/f/usable")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
@@ -150,7 +150,7 @@ public class GroupControllerClient implements GroupControllerApi {
   public Flux<Group> getMembership() {
     return webClient
         .get()
-        .uri("/api/group/f/membership")
+        .uri("/api/groups/f/membership")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
@@ -162,7 +162,7 @@ public class GroupControllerClient implements GroupControllerApi {
     //noinspection unchecked
     return webClient
         .get()
-        .uri("/api/group/f/membership-ids")
+        .uri("/api/groups/f/membership-ids")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
