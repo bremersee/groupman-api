@@ -12,6 +12,9 @@
 
   <artifactId>groupman-api-spring-reactive</artifactId>
 
+  <name>groupman-api-spring-reactive</name>
+  <description>Groupman API for Spring Webflux</description>
+
   <dependencies>
     <dependency>
       <groupId>org.bremersee</groupId>

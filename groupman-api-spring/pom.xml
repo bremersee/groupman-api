@@ -12,6 +12,9 @@
 
   <artifactId>groupman-api-spring</artifactId>
 
+  <name>groupman-api-spring</name>
+  <description>Groupman API for Spring Web</description>
+
   <dependencies>
     <dependency>
       <groupId>org.bremersee</groupId>

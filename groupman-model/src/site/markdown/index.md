@@ -1,3 +1,3 @@
-# groupman-model-spring
+# groupman-model
 
 This library contains the Java model.

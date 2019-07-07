@@ -12,6 +12,9 @@
 
   <artifactId>groupman-model</artifactId>
 
+  <name>groupman-model</name>
+  <description>Groupman Model</description>
+
   <dependencies>
     <dependency>
       <groupId>org.bremersee</groupId>
