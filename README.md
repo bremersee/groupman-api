@@ -1,2 +1,3 @@
-# groupman-model
-Group model
+# groupman-api
+
+Group service API

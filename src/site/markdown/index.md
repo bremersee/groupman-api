@@ -1,0 +1,3 @@
+# groupman-api
+
+Parent module.
