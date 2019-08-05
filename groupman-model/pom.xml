@@ -7,7 +7,7 @@
   <parent>
     <artifactId>groupman-api</artifactId>
     <groupId>org.bremersee</groupId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
   </parent>
 
   <artifactId>groupman-model</artifactId>
