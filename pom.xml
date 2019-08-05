@@ -7,12 +7,12 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <relativePath/>
   </parent>
 
   <artifactId>groupman-api</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <packaging>pom</packaging>
 
   <name>groupman-api</name>
@@ -20,8 +20,8 @@
   <url>https://github.com/bremersee/groupman-api</url>
 
   <properties>
-    <common-model.version>1.1.0</common-model.version>
-    <common-base.version>1.2.0</common-base.version>
+    <common-model.version>1.1.1</common-model.version>
+    <common-base.version>1.2.1</common-base.version>
   </properties>
 
   <modules>
