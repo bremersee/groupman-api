@@ -51,7 +51,7 @@ public class GroupAdminControllerMock implements GroupAdminControllerApi {
   }
 
   @Override
-  public ResponseEntity<List<Group>> getGroups() {
+  public ResponseEntity<List<Group>> findGroups() {
     return ResponseEntity.ok(GroupRepositoryMock.getGroups());
   }
 

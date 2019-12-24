@@ -18,7 +18,14 @@ package org.bremersee.groupman.api;
 
 import java.util.List;
 import java.util.Set;
+import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -28,6 +35,7 @@ import reactor.core.publisher.Mono;
  * @author Christian Bremer
  */
 @SuppressWarnings("unused")
+@Validated
 public interface GroupControllerApi {
 
   /**
@@ -36,7 +44,12 @@ public interface GroupControllerApi {
    * @param group the group
    * @return the group
    */
-  Mono<Group> createGroup(Group group);
+  @RequestMapping(
+      value = "/api/groups",
+      produces = {"application/json"},
+      consumes = {"application/json"},
+      method = RequestMethod.POST)
+  Mono<Group> createGroup(@Valid @RequestBody Group group);
 
   /**
    * Gets group by id.
@@ -44,7 +57,11 @@ public interface GroupControllerApi {
    * @param groupId the group id
    * @return the group by id
    */
-  Mono<Group> getGroupById(String groupId);
+  @RequestMapping(
+      value = "/api/groups/{id}",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Mono<Group> getGroupById(@PathVariable(value = "id") String groupId);
 
   /**
    * Update group.
@@ -53,7 +70,14 @@ public interface GroupControllerApi {
    * @param group   the group
    * @return the group
    */
-  Mono<Group> updateGroup(String groupId, Group group);
+  @RequestMapping(
+      value = "/api/groups/{id}",
+      produces = {"application/json"},
+      consumes = {"application/json"},
+      method = RequestMethod.PUT)
+  Mono<Group> updateGroup(
+      @PathVariable("id") String groupId,
+      @Valid @RequestBody Group group);
 
   /**
    * Delete group.
@@ -61,7 +85,10 @@ public interface GroupControllerApi {
    * @param groupId the group id
    * @return the mono
    */
-  Mono<Void> deleteGroup(String groupId);
+  @RequestMapping(
+      value = "/api/groups/{id}",
+      method = RequestMethod.DELETE)
+  Mono<Void> deleteGroup(@PathVariable("id") String groupId);
 
   /**
    * Gets groups by ids.
@@ -69,13 +96,21 @@ public interface GroupControllerApi {
    * @param ids the ids
    * @return the groups by ids
    */
-  Flux<Group> getGroupsByIds(List<String> ids);
+  @RequestMapping(
+      value = "/api/groups/f",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Flux<Group> getGroupsByIds(@RequestParam(value = "id", required = false) List<String> ids);
 
   /**
    * Gets editable groups.
    *
    * @return the editable groups
    */
+  @RequestMapping(
+      value = "/api/groups/f/editable",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
   Flux<Group> getEditableGroups();
 
   /**
@@ -83,6 +118,10 @@ public interface GroupControllerApi {
    *
    * @return the usable groups
    */
+  @RequestMapping(
+      value = "/api/groups/f/usable",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
   Flux<Group> getUsableGroups();
 
   /**
@@ -90,6 +129,10 @@ public interface GroupControllerApi {
    *
    * @return the membership
    */
+  @RequestMapping(
+      value = "/api/groups/f/membership",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
   Flux<Group> getMembership();
 
   /**
@@ -97,6 +140,10 @@ public interface GroupControllerApi {
    *
    * @return the membership ids
    */
+  @RequestMapping(
+      value = "/api/groups/f/membership-ids",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
   Mono<Set<String>> getMembershipIds();
 
 }

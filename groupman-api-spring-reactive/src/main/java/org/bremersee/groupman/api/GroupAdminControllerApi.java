@@ -17,7 +17,14 @@
 package org.bremersee.groupman.api;
 
 import java.util.List;
+import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -27,6 +34,7 @@ import reactor.core.publisher.Mono;
  * @author Christian Bremer
  */
 @SuppressWarnings("unused")
+@Validated
 public interface GroupAdminControllerApi {
 
   /**
@@ -34,6 +42,10 @@ public interface GroupAdminControllerApi {
    *
    * @return the groups
    */
+  @RequestMapping(
+      value = "/api/admin/groups",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
   Flux<Group> findGroups();
 
   /**
@@ -42,7 +54,12 @@ public interface GroupAdminControllerApi {
    * @param group the group
    * @return the group
    */
-  Mono<Group> addGroup(Group group);
+  @RequestMapping(
+      value = "/api/admin/groups",
+      produces = {"application/json"},
+      consumes = {"application/json"},
+      method = RequestMethod.POST)
+  Mono<Group> addGroup(@Valid @RequestBody Group group);
 
   /**
    * Finds group by id.
@@ -50,7 +67,11 @@ public interface GroupAdminControllerApi {
    * @param groupId the group id
    * @return the group by id
    */
-  Mono<Group> findGroupById(String groupId);
+  @RequestMapping(
+      value = "/api/admin/groups/{id}",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Mono<Group> findGroupById(@PathVariable("id") String groupId);
 
   /**
    * Modifies group.
@@ -59,7 +80,14 @@ public interface GroupAdminControllerApi {
    * @param group   the group
    * @return the group
    */
-  Mono<Group> modifyGroup(String groupId, Group group);
+  @RequestMapping(
+      value = "/api/admin/groups/{id}",
+      produces = {"application/json"},
+      consumes = {"application/json"},
+      method = RequestMethod.PUT)
+  Mono<Group> modifyGroup(
+      @PathVariable("id") String groupId,
+      @Valid @RequestBody Group group);
 
   /**
    * Removes group.
@@ -67,7 +95,10 @@ public interface GroupAdminControllerApi {
    * @param groupId the group id
    * @return the mono
    */
-  Mono<Void> removeGroup(String groupId);
+  @RequestMapping(
+      value = "/api/admin/groups/{id}",
+      method = RequestMethod.DELETE)
+  Mono<Void> removeGroup(@PathVariable("id") String groupId);
 
   /**
    * Finds groups by ids.
@@ -75,6 +106,10 @@ public interface GroupAdminControllerApi {
    * @param ids the ids
    * @return the groups by ids
    */
-  Flux<Group> findGroupsByIds(List<String> ids);
+  @RequestMapping(
+      value = "/api/admin/groups/f",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Flux<Group> findGroupsByIds(@RequestParam(value = "id", required = false) List<String> ids);
 
 }

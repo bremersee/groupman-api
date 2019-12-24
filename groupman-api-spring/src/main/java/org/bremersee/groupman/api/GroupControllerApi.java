@@ -26,6 +26,7 @@ import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
 import org.bremersee.groupman.model.GroupIdList;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * The group controller api.
  */
 @Api(value = "GroupController")
+@Validated
 public interface GroupControllerApi {
 
   /**
@@ -59,50 +61,6 @@ public interface GroupControllerApi {
       method = RequestMethod.POST)
   ResponseEntity<Group> createGroup(
       @ApiParam(value = "The new group.", required = true) @Valid @RequestBody Group group);
-
-
-  /**
-   * Delete group.
-   *
-   * @param id the id
-   * @return the response entity
-   */
-  @ApiOperation(
-      value = "Delete group.",
-      nickname = "deleteGroup",
-      response = Group.class,
-      tags = {"group-controller"})
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 403, message = "Forbidden",
-          response = org.bremersee.exception.model.RestApiException.class)
-  })
-  @RequestMapping(
-      value = "/api/groups/{id}",
-      method = RequestMethod.DELETE)
-  ResponseEntity<Group> deleteGroup(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id);
-
-
-  /**
-   * Gets editable groups.
-   *
-   * @return the editable groups
-   */
-  @ApiOperation(
-      value = "Get editable groups.",
-      nickname = "getEditableGroups",
-      response = Group.class,
-      responseContainer = "List",
-      tags = {"group-controller"})
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List")
-  })
-  @RequestMapping(
-      value = "/api/groups/f/editable",
-      produces = {"application/json"},
-      method = RequestMethod.GET)
-  ResponseEntity<List<Group>> getEditableGroups();
 
 
   /**
@@ -130,6 +88,58 @@ public interface GroupControllerApi {
 
 
   /**
+   * Update group.
+   *
+   * @param id    the id
+   * @param group the group
+   * @return the response entity
+   */
+  @ApiOperation(
+      value = "Update group.",
+      nickname = "updateGroup",
+      response = Group.class,
+      tags = {"group-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class),
+      @ApiResponse(code = 403, message = "Forbidden",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 404, message = "Not Found",
+          response = org.bremersee.exception.model.RestApiException.class)
+  })
+  @RequestMapping(
+      value = "/api/groups/{id}",
+      produces = {"application/json"},
+      consumes = {"application/json"},
+      method = RequestMethod.PUT)
+  ResponseEntity<Group> updateGroup(
+      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id,
+      @ApiParam(value = "The update data.", required = true) @Valid @RequestBody Group group);
+
+
+  /**
+   * Delete group.
+   *
+   * @param id the id
+   * @return the response entity
+   */
+  @ApiOperation(
+      value = "Delete group.",
+      nickname = "deleteGroup",
+      response = Group.class,
+      tags = {"group-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class),
+      @ApiResponse(code = 403, message = "Forbidden",
+          response = org.bremersee.exception.model.RestApiException.class)
+  })
+  @RequestMapping(
+      value = "/api/groups/{id}",
+      method = RequestMethod.DELETE)
+  ResponseEntity<Group> deleteGroup(
+      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id);
+
+
+  /**
    * Gets groups by ids.
    *
    * @param id the id
@@ -150,6 +160,48 @@ public interface GroupControllerApi {
       method = RequestMethod.GET)
   ResponseEntity<List<Group>> getGroupsByIds(
       @ApiParam(value = "Group IDs") @RequestParam(value = "id", required = false) List<String> id);
+
+
+  /**
+   * Gets editable groups.
+   *
+   * @return the editable groups
+   */
+  @ApiOperation(
+      value = "Get editable groups.",
+      nickname = "getEditableGroups",
+      response = Group.class,
+      responseContainer = "List",
+      tags = {"group-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List")
+  })
+  @RequestMapping(
+      value = "/api/groups/f/editable",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<List<Group>> getEditableGroups();
+
+
+  /**
+   * Gets usable groups.
+   *
+   * @return the usable groups
+   */
+  @ApiOperation(
+      value = "Get usable groups.",
+      nickname = "getUsableGroups",
+      response = Group.class,
+      responseContainer = "List",
+      tags = {"group-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List")
+  })
+  @RequestMapping(
+      value = "/api/groups/f/usable",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<List<Group>> getUsableGroups();
 
 
   /**
@@ -192,54 +244,5 @@ public interface GroupControllerApi {
       method = RequestMethod.GET)
   ResponseEntity<GroupIdList> getMembershipIds();
 
-
-  /**
-   * Gets usable groups.
-   *
-   * @return the usable groups
-   */
-  @ApiOperation(
-      value = "Get usable groups.",
-      nickname = "getUsableGroups",
-      response = Group.class,
-      responseContainer = "List",
-      tags = {"group-controller"})
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List")
-  })
-  @RequestMapping(
-      value = "/api/groups/f/usable",
-      produces = {"application/json"},
-      method = RequestMethod.GET)
-  ResponseEntity<List<Group>> getUsableGroups();
-
-
-  /**
-   * Update group.
-   *
-   * @param id    the id
-   * @param group the group
-   * @return the response entity
-   */
-  @ApiOperation(
-      value = "Update group.",
-      nickname = "updateGroup",
-      response = Group.class,
-      tags = {"group-controller"})
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 403, message = "Forbidden",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 404, message = "Not Found",
-          response = org.bremersee.exception.model.RestApiException.class)
-  })
-  @RequestMapping(
-      value = "/api/groups/{id}",
-      produces = {"application/json"},
-      consumes = {"application/json"},
-      method = RequestMethod.PUT)
-  ResponseEntity<Group> updateGroup(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id,
-      @ApiParam(value = "The update data.", required = true) @Valid @RequestBody Group group);
 
 }
