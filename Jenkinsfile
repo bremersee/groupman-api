@@ -2,10 +2,15 @@ pipeline {
   agent {
     label 'maven'
   }
+  tools {
+    jdk 'jdk8'
+    maven 'm3'
+  }
   stages {
-    stage('Build') {
+    stage('Tools') {
       steps {
-        sh 'mvn -B clean compile'
+        sh 'java -version'
+        sh 'mvn -B --version'
       }
     }
     stage('Test') {
