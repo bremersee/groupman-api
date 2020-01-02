@@ -16,6 +16,11 @@
 
 package org.bremersee.groupman.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
@@ -34,6 +39,7 @@ import reactor.core.publisher.Mono;
  * @author Christian Bremer
  */
 @SuppressWarnings("unused")
+@Api(value = "GroupAdminController")
 @Validated
 public interface GroupAdminControllerApi {
 
@@ -42,6 +48,16 @@ public interface GroupAdminControllerApi {
    *
    * @return the groups
    */
+  @ApiOperation(
+      value = "Find all groups.",
+      nickname = "findGroups",
+      response = Group.class,
+      responseContainer = "List",
+      tags = {"group-admin-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List"),
+      @ApiResponse(code = 403, message = "Forbidden")
+  })
   @RequestMapping(
       value = "/api/admin/groups",
       produces = {"application/json"},
@@ -54,12 +70,26 @@ public interface GroupAdminControllerApi {
    * @param group the group
    * @return the group
    */
+  @ApiOperation(
+      value = "Add a new group.",
+      nickname = "addGroup",
+      response = Group.class,
+      tags = {"group-admin-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class),
+      @ApiResponse(code = 400, message = "Bad Request",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 403, message = "Forbidden"),
+      @ApiResponse(code = 409, message = "Group already exists",
+          response = org.bremersee.exception.model.RestApiException.class)
+  })
   @RequestMapping(
       value = "/api/admin/groups",
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.POST)
-  Mono<Group> addGroup(@Valid @RequestBody Group group);
+  Mono<Group> addGroup(
+      @ApiParam(value = "The new group.", required = true) @Valid @RequestBody Group group);
 
   /**
    * Finds group by id.
@@ -67,11 +97,23 @@ public interface GroupAdminControllerApi {
    * @param groupId the group id
    * @return the group by id
    */
+  @ApiOperation(
+      value = "Find a group.",
+      nickname = "findGroupById",
+      response = Group.class,
+      tags = {"group-admin-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class),
+      @ApiResponse(code = 404, message = "Not Found",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 403, message = "Forbidden")
+  })
   @RequestMapping(
       value = "/api/admin/groups/{id}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  Mono<Group> findGroupById(@PathVariable("id") String groupId);
+  Mono<Group> findGroupById(
+      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String groupId);
 
   /**
    * Modifies group.
@@ -80,14 +122,29 @@ public interface GroupAdminControllerApi {
    * @param group   the group
    * @return the group
    */
+  @ApiOperation(
+      value = "Modify group.",
+      nickname = "modifyGroup",
+      response = Group.class,
+      tags = {"group-admin-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class),
+      @ApiResponse(code = 400, message = "Bad Request",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 403, message = "Forbidden"),
+      @ApiResponse(code = 404, message = "Not Found",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 409, message = "Version is not up to date",
+          response = org.bremersee.exception.model.RestApiException.class)
+  })
   @RequestMapping(
       value = "/api/admin/groups/{id}",
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.PUT)
   Mono<Group> modifyGroup(
-      @PathVariable("id") String groupId,
-      @Valid @RequestBody Group group);
+      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String groupId,
+      @ApiParam(value = "The modified group.", required = true) @Valid @RequestBody Group group);
 
   /**
    * Removes group.
@@ -95,21 +152,42 @@ public interface GroupAdminControllerApi {
    * @param groupId the group id
    * @return the mono
    */
+  @ApiOperation(
+      value = "Delete group.",
+      nickname = "removeGroup",
+      response = Group.class,
+      tags = {"group-admin-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class),
+      @ApiResponse(code = 403, message = "Forbidden")
+  })
   @RequestMapping(
       value = "/api/admin/groups/{id}",
       method = RequestMethod.DELETE)
-  Mono<Void> removeGroup(@PathVariable("id") String groupId);
+  Mono<Void> removeGroup(
+      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String groupId);
 
   /**
    * Finds groups by ids.
    *
-   * @param ids the ids
+   * @param id the list of ids
    * @return the groups by ids
    */
+  @ApiOperation(
+      value = "Find groups by id.",
+      nickname = "findGroupsByIds",
+      response = Group.class,
+      responseContainer = "List",
+      tags = {"group-admin-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List"),
+      @ApiResponse(code = 403, message = "Forbidden")
+  })
   @RequestMapping(
       value = "/api/admin/groups/f",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  Flux<Group> findGroupsByIds(@RequestParam(value = "id", required = false) List<String> ids);
+  Flux<Group> findGroupsByIds(
+      @ApiParam(value = "Group IDs") @RequestParam(value = "id", required = false) List<String> id);
 
 }

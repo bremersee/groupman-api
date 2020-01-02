@@ -52,7 +52,11 @@ public interface GroupControllerApi {
       response = Group.class,
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class)
+      @ApiResponse(code = 200, message = "OK", response = Group.class),
+      @ApiResponse(code = 400, message = "Bad Request",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 409, message = "Group already exists",
+          response = org.bremersee.exception.model.RestApiException.class)
   })
   @RequestMapping(
       value = "/api/groups",
@@ -101,9 +105,13 @@ public interface GroupControllerApi {
       tags = {"group-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "OK", response = Group.class),
+      @ApiResponse(code = 400, message = "Bad Request",
+          response = org.bremersee.exception.model.RestApiException.class),
       @ApiResponse(code = 403, message = "Forbidden",
           response = org.bremersee.exception.model.RestApiException.class),
       @ApiResponse(code = 404, message = "Not Found",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 409, message = "Version is not up to date",
           response = org.bremersee.exception.model.RestApiException.class)
   })
   @RequestMapping(
@@ -130,6 +138,8 @@ public interface GroupControllerApi {
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "OK", response = Group.class),
       @ApiResponse(code = 403, message = "Forbidden",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 404, message = "Not found",
           response = org.bremersee.exception.model.RestApiException.class)
   })
   @RequestMapping(
@@ -142,7 +152,7 @@ public interface GroupControllerApi {
   /**
    * Gets groups by ids.
    *
-   * @param id the id
+   * @param id the list of ids
    * @return the groups by ids
    */
   @ApiOperation(
