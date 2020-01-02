@@ -41,7 +41,7 @@ import reactor.core.publisher.Mono;
 @SuppressWarnings("unused")
 @Api(value = "GroupAdminController")
 @Validated
-public interface GroupAdminControllerApi {
+public interface GroupAdminWebfluxControllerApi {
 
   /**
    * Finds groups.

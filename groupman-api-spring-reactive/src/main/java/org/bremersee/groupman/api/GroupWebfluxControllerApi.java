@@ -43,7 +43,7 @@ import reactor.core.publisher.Mono;
 @SuppressWarnings("unused")
 @Api(value = "GroupController")
 @Validated
-public interface GroupControllerApi {
+public interface GroupWebfluxControllerApi {
 
   /**
    * Create group.

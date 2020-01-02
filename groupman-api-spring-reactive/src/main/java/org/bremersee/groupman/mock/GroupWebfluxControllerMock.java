@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 import org.bremersee.exception.ServiceException;
-import org.bremersee.groupman.api.GroupControllerApi;
+import org.bremersee.groupman.api.GroupWebfluxControllerApi;
 import org.bremersee.groupman.model.Group;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,14 +31,14 @@ import reactor.core.publisher.Mono;
  * @author Christian Bremer
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class GroupControllerMock implements GroupControllerApi {
+public class GroupWebfluxControllerMock implements GroupWebfluxControllerApi {
 
   private final Supplier<String> userNameSupplier;
 
   /**
    * Instantiates a new group controller mock.
    */
-  public GroupControllerMock() {
+  public GroupWebfluxControllerMock() {
     this(null);
   }
 
@@ -47,7 +47,7 @@ public class GroupControllerMock implements GroupControllerApi {
    *
    * @param userNameSupplier the user name supplier
    */
-  public GroupControllerMock(Supplier<String> userNameSupplier) {
+  public GroupWebfluxControllerMock(Supplier<String> userNameSupplier) {
     if (userNameSupplier != null) {
       this.userNameSupplier = userNameSupplier;
     } else {

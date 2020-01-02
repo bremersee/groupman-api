@@ -76,6 +76,11 @@
         <artifactId>common-base</artifactId>
         <version>${common-base.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.bremersee</groupId>
+        <artifactId>common-base-test</artifactId>
+        <version>${common-base.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

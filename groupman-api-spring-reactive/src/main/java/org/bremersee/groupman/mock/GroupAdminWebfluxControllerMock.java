@@ -18,7 +18,7 @@ package org.bremersee.groupman.mock;
 
 import java.util.List;
 import org.bremersee.exception.ServiceException;
-import org.bremersee.groupman.api.GroupAdminControllerApi;
+import org.bremersee.groupman.api.GroupAdminWebfluxControllerApi;
 import org.bremersee.groupman.model.Group;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
  * @author Christian Bremer
  */
 @SuppressWarnings("unused")
-public class GroupAdminControllerMock implements GroupAdminControllerApi {
+public class GroupAdminWebfluxControllerMock implements GroupAdminWebfluxControllerApi {
 
   @Override
   public Flux<Group> findGroups() {
