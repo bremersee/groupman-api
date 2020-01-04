@@ -22,29 +22,34 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
+import java.util.Set;
 import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
 import org.bremersee.groupman.model.GroupIdList;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
- * The group controller api.
+ * The group controller interface.
+ *
+ * @author Christian Bremer
  */
+@SuppressWarnings("unused")
 @Api(value = "GroupController")
 @Validated
-public interface GroupControllerApi {
+public interface GroupWebfluxControllerApi {
 
   /**
    * Create group.
    *
    * @param group the group
-   * @return the response entity
+   * @return the group
    */
   @ApiOperation(
       value = "Create a new group.",
@@ -63,14 +68,13 @@ public interface GroupControllerApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.POST)
-  ResponseEntity<Group> createGroup(
+  Mono<Group> createGroup(
       @ApiParam(value = "The new group.", required = true) @Valid @RequestBody Group group);
-
 
   /**
    * Gets group by id.
    *
-   * @param id the id
+   * @param id the group id
    * @return the group by id
    */
   @ApiOperation(
@@ -87,16 +91,15 @@ public interface GroupControllerApi {
       value = "/api/groups/{id}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<Group> getGroupById(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id);
-
+  Mono<Group> getGroupById(
+      @ApiParam(value = "The group ID.", required = true) @PathVariable(value = "id") String id);
 
   /**
    * Update group.
    *
-   * @param id    the id
+   * @param id    the group id
    * @param group the group
-   * @return the response entity
+   * @return the group
    */
   @ApiOperation(
       value = "Update group.",
@@ -119,16 +122,15 @@ public interface GroupControllerApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.PUT)
-  ResponseEntity<Group> updateGroup(
+  Mono<Group> updateGroup(
       @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id,
       @ApiParam(value = "The update data.", required = true) @Valid @RequestBody Group group);
-
 
   /**
    * Delete group.
    *
-   * @param id the id
-   * @return the response entity
+   * @param id the group id
+   * @return the mono
    */
   @ApiOperation(
       value = "Delete group.",
@@ -145,9 +147,8 @@ public interface GroupControllerApi {
   @RequestMapping(
       value = "/api/groups/{id}",
       method = RequestMethod.DELETE)
-  ResponseEntity<Group> deleteGroup(
+  Mono<Void> deleteGroup(
       @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id);
-
 
   /**
    * Gets groups by ids.
@@ -168,9 +169,8 @@ public interface GroupControllerApi {
       value = "/api/groups/f",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<Group>> getGroupsByIds(
+  Flux<Group> getGroupsByIds(
       @ApiParam(value = "Group IDs") @RequestParam(value = "id", required = false) List<String> id);
-
 
   /**
    * Gets editable groups.
@@ -190,8 +190,7 @@ public interface GroupControllerApi {
       value = "/api/groups/f/editable",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<Group>> getEditableGroups();
-
+  Flux<Group> getEditableGroups();
 
   /**
    * Gets usable groups.
@@ -211,8 +210,7 @@ public interface GroupControllerApi {
       value = "/api/groups/f/usable",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<Group>> getUsableGroups();
-
+  Flux<Group> getUsableGroups();
 
   /**
    * Gets membership.
@@ -232,8 +230,7 @@ public interface GroupControllerApi {
       value = "/api/groups/f/membership",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<Group>> getMembership();
-
+  Flux<Group> getMembership();
 
   /**
    * Gets membership ids.
@@ -246,13 +243,12 @@ public interface GroupControllerApi {
       response = GroupIdList.class,
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = GroupIdList.class)
+      @ApiResponse(code = 200, message = "OK", response = String.class, responseContainer = "List")
   })
   @RequestMapping(
       value = "/api/groups/f/membership-ids",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<GroupIdList> getMembershipIds();
-
+  Mono<Set<String>> getMembershipIds();
 
 }

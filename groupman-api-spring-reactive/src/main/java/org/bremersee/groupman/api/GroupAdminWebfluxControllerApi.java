@@ -24,23 +24,27 @@ import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
- * The group admin controller api.
+ * The group admin controller interface.
+ *
+ * @author Christian Bremer
  */
+@SuppressWarnings("unused")
 @Api(value = "GroupAdminController")
 @Validated
-public interface GroupAdminControllerApi {
+public interface GroupAdminWebfluxControllerApi {
 
   /**
-   * Gets groups.
+   * Finds groups.
    *
    * @return the groups
    */
@@ -58,14 +62,13 @@ public interface GroupAdminControllerApi {
       value = "/api/admin/groups",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<Group>> findGroups();
-
+  Flux<Group> findGroups();
 
   /**
-   * Add group.
+   * Adds group.
    *
    * @param group the group
-   * @return the response entity
+   * @return the group
    */
   @ApiOperation(
       value = "Add a new group.",
@@ -85,15 +88,14 @@ public interface GroupAdminControllerApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.POST)
-  ResponseEntity<Group> addGroup(
+  Mono<Group> addGroup(
       @ApiParam(value = "The new group.", required = true) @Valid @RequestBody Group group);
 
-
   /**
-   * Find group by id.
+   * Finds group by id.
    *
-   * @param id the id
-   * @return the response entity
+   * @param groupId the group id
+   * @return the group by id
    */
   @ApiOperation(
       value = "Find a group.",
@@ -110,16 +112,15 @@ public interface GroupAdminControllerApi {
       value = "/api/admin/groups/{id}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<Group> findGroupById(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id);
-
+  Mono<Group> findGroupById(
+      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String groupId);
 
   /**
-   * Modify group.
+   * Modifies group.
    *
-   * @param id    the id
-   * @param group the group
-   * @return the response entity
+   * @param groupId the group id
+   * @param group   the group
+   * @return the group
    */
   @ApiOperation(
       value = "Modify group.",
@@ -141,16 +142,15 @@ public interface GroupAdminControllerApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.PUT)
-  ResponseEntity<Group> modifyGroup(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id,
+  Mono<Group> modifyGroup(
+      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String groupId,
       @ApiParam(value = "The modified group.", required = true) @Valid @RequestBody Group group);
 
-
   /**
-   * Remove group.
+   * Removes group.
    *
-   * @param id the id
-   * @return the response entity
+   * @param groupId the group id
+   * @return the mono
    */
   @ApiOperation(
       value = "Delete group.",
@@ -164,15 +164,14 @@ public interface GroupAdminControllerApi {
   @RequestMapping(
       value = "/api/admin/groups/{id}",
       method = RequestMethod.DELETE)
-  ResponseEntity<Group> removeGroup(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id);
-
+  Mono<Void> removeGroup(
+      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String groupId);
 
   /**
-   * Find groups by ids.
+   * Finds groups by ids.
    *
    * @param id the list of ids
-   * @return the response entity
+   * @return the groups by ids
    */
   @ApiOperation(
       value = "Find groups by id.",
@@ -188,8 +187,7 @@ public interface GroupAdminControllerApi {
       value = "/api/admin/groups/f",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<Group>> findGroupsByIds(
+  Flux<Group> findGroupsByIds(
       @ApiParam(value = "Group IDs") @RequestParam(value = "id", required = false) List<String> id);
-
 
 }

@@ -7,7 +7,7 @@
   <parent>
     <artifactId>groupman-api</artifactId>
     <groupId>org.bremersee</groupId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
   </parent>
 
   <artifactId>groupman-api-spring-reactive</artifactId>
@@ -32,6 +32,18 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webflux</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.bremersee</groupId>
+      <artifactId>common-base-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.bremersee</groupId>
+      <artifactId>groupman-api-spring</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
