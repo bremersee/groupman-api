@@ -15,7 +15,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'mvn -B test'
+        sh 'mvn -B clean test'
       }
     }
     stage('Deploy') {
@@ -26,7 +26,7 @@ pipeline {
         }
       }
       steps {
-        sh 'mvn -B -P deploy deploy'
+        sh 'mvn -B -P deploy clean deploy'
       }
     }
     stage('Snapshot Site') {
@@ -34,7 +34,7 @@ pipeline {
         branch 'develop'
       }
       steps {
-        sh 'mvn -B site-deploy'
+        sh 'mvn -B clean site-deploy'
       }
     }
     stage('Release Site') {
@@ -42,7 +42,7 @@ pipeline {
         branch 'master'
       }
       steps {
-        sh 'mvn -B -P gh-pages-site site site:stage scm-publish:publish-scm'
+        sh 'mvn -B -P gh-pages-site clean site site:stage scm-publish:publish-scm'
       }
     }
   }
