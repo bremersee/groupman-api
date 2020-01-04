@@ -1,0 +1,3 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+groupman-api-spring-reactive,org.bremersee.groupman.mock,GroupWebfluxControllerMock,97,0,6,0,27,0,15,0,12,0
+groupman-api-spring-reactive,org.bremersee.groupman.mock,GroupAdminWebfluxControllerMock,49,0,4,0,14,0,9,0,7,0
