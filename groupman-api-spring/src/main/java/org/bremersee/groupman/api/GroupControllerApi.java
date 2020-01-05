@@ -123,6 +123,38 @@ public interface GroupControllerApi {
       @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id,
       @ApiParam(value = "The update data.", required = true) @Valid @RequestBody Group group);
 
+  /**
+   * Patch group.
+   *
+   * @param id    the group id
+   * @param group the group
+   * @return the group
+   */
+  @ApiOperation(
+      value = "Patch group.",
+      nickname = "patchGroup",
+      response = Group.class,
+      tags = {"group-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Group.class),
+      @ApiResponse(code = 400, message = "Bad Request",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 403, message = "Forbidden",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 404, message = "Not Found",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 409, message = "Version is not up to date",
+          response = org.bremersee.exception.model.RestApiException.class)
+  })
+  @RequestMapping(
+      value = "/api/groups/{id}",
+      produces = {"application/json"},
+      consumes = {"application/json"},
+      method = RequestMethod.PATCH)
+  ResponseEntity<Group> patchGroup(
+      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id,
+      @ApiParam(value = "The update data.", required = true) @Valid @RequestBody Group group);
+
 
   /**
    * Delete group.

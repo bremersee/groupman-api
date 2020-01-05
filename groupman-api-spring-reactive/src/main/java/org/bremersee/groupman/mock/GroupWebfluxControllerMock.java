@@ -19,6 +19,7 @@ package org.bremersee.groupman.mock;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
+import javax.validation.Valid;
 import org.bremersee.exception.ServiceException;
 import org.bremersee.groupman.api.GroupWebfluxControllerApi;
 import org.bremersee.groupman.model.Group;
@@ -74,6 +75,15 @@ public class GroupWebfluxControllerMock implements GroupWebfluxControllerApi {
     Group newGroup = GroupRepositoryMock.updateGroup(groupId, group);
     if (newGroup == null) {
       throw ServiceException.forbidden("Group", groupId);
+    }
+    return Mono.just(newGroup);
+  }
+
+  @Override
+  public Mono<Group> patchGroup(String id, @Valid Group group) {
+    Group newGroup = GroupRepositoryMock.updateGroup(id, group);
+    if (newGroup == null) {
+      throw ServiceException.forbidden("Group", id);
     }
     return Mono.just(newGroup);
   }

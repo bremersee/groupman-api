@@ -18,6 +18,11 @@ pipeline {
         sh 'mvn -B clean test'
       }
     }
+    stage('Deploy Feature') {
+      steps {
+        sh 'mvn -B clean install'
+      }
+    }
     stage('Deploy') {
       when {
         anyOf {

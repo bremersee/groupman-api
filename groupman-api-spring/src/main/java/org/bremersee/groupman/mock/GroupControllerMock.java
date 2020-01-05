@@ -114,4 +114,13 @@ public class GroupControllerMock implements GroupControllerApi {
     }
     return ResponseEntity.ok(newGroup);
   }
+
+  @Override
+  public ResponseEntity<Group> patchGroup(String id, @Valid Group group) {
+    Group newGroup = GroupRepositoryMock.updateGroup(id, group);
+    if (newGroup == null) {
+      throw new ForbiddenException();
+    }
+    return ResponseEntity.ok(newGroup);
+  }
 }
