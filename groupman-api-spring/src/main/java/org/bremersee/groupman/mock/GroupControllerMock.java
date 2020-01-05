@@ -19,7 +19,6 @@ package org.bremersee.groupman.mock;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
-import javax.validation.Valid;
 import org.bremersee.groupman.api.GroupControllerApi;
 import org.bremersee.groupman.model.Group;
 import org.bremersee.groupman.model.GroupIdList;
@@ -57,7 +56,7 @@ public class GroupControllerMock implements GroupControllerApi {
   }
 
   @Override
-  public ResponseEntity<Group> createGroup(@Valid Group group) {
+  public ResponseEntity<Group> createGroup(Group group) {
     return ResponseEntity.ok(GroupRepositoryMock.createGroup(group));
   }
 
@@ -113,7 +112,7 @@ public class GroupControllerMock implements GroupControllerApi {
   }
 
   @Override
-  public ResponseEntity<Group> updateGroup(String id, @Valid Group group) {
+  public ResponseEntity<Group> updateGroup(String id, Group group) {
     Group newGroup = GroupRepositoryMock.updateGroup(id, group);
     if (newGroup == null) {
       throw new ForbiddenException();
