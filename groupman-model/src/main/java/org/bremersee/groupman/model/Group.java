@@ -90,7 +90,7 @@ public class Group implements Serializable {
    * @param members     the members
    * @param owners      the owners
    */
-  @Builder
+  @Builder(toBuilder = true)
   public Group(String id, Long version, String createdBy, OffsetDateTime createdAt,
       OffsetDateTime modifiedAt, Source source, String name, String description,
       List<String> members, List<String> owners) {

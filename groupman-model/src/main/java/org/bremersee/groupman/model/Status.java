@@ -73,7 +73,7 @@ public class Status implements Serializable {
    * @param ownedGroupSize the owned group size
    * @param membershipSize the membership size
    */
-  @Builder
+  @Builder(toBuilder = true)
   @SuppressWarnings("unused")
   public Status(long maxOwnedGroups, long ownedGroupSize, long membershipSize) {
     this.maxOwnedGroups = maxOwnedGroups;
