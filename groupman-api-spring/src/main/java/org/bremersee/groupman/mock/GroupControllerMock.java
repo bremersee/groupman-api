@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import org.bremersee.groupman.api.GroupControllerApi;
 import org.bremersee.groupman.model.Group;
 import org.bremersee.groupman.model.GroupIdList;
+import org.bremersee.groupman.model.Status;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -98,6 +99,11 @@ public class GroupControllerMock implements GroupControllerApi {
     GroupIdList list = new GroupIdList();
     list.addAll(ids);
     return ResponseEntity.ok(list);
+  }
+
+  @Override
+  public ResponseEntity<Status> getStatus() {
+    return ResponseEntity.ok(GroupRepositoryMock.getStatus(userNameSupplier.get()));
   }
 
   @Override

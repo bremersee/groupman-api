@@ -26,6 +26,7 @@ import java.util.Set;
 import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
 import org.bremersee.groupman.model.GroupIdList;
+import org.bremersee.groupman.model.Status;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -282,5 +283,24 @@ public interface GroupWebfluxControllerApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<Set<String>> getMembershipIds();
+
+  /**
+   * Get status of the current user.
+   *
+   * @return the status
+   */
+  @ApiOperation(
+      value = "Get status of the current user.",
+      nickname = "getStatus",
+      response = Status.class,
+      tags = {"group-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Status.class)
+  })
+  @RequestMapping(
+      value = "/api/groups/f/status",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Mono<Status> getStatus();
 
 }

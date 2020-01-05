@@ -25,6 +25,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
 import org.bremersee.groupman.model.GroupIdList;
+import org.bremersee.groupman.model.Status;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -286,5 +287,23 @@ public interface GroupControllerApi {
       method = RequestMethod.GET)
   ResponseEntity<GroupIdList> getMembershipIds();
 
+  /**
+   * Get status of the current user.
+   *
+   * @return the status
+   */
+  @ApiOperation(
+      value = "Get status of the current user.",
+      nickname = "getStatus",
+      response = Status.class,
+      tags = {"group-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Status.class)
+  })
+  @RequestMapping(
+      value = "/api/groups/f/status",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<Status> getStatus();
 
 }

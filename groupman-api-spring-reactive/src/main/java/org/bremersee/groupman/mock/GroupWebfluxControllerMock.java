@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import org.bremersee.exception.ServiceException;
 import org.bremersee.groupman.api.GroupWebfluxControllerApi;
 import org.bremersee.groupman.model.Group;
+import org.bremersee.groupman.model.Status;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -121,5 +122,10 @@ public class GroupWebfluxControllerMock implements GroupWebfluxControllerApi {
   public Mono<Set<String>> getMembershipIds() {
     Set<String> ids = GroupRepositoryMock.getMembershipIds(userNameSupplier.get());
     return Mono.just(ids);
+  }
+
+  @Override
+  public Mono<Status> getStatus() {
+    return Mono.just(GroupRepositoryMock.getStatus(userNameSupplier.get()));
   }
 }
