@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import org.bremersee.groupman.model.Group;
 import org.bremersee.groupman.model.Source;
+import org.bremersee.groupman.model.Status;
 
 /**
  * The group repository mock.
@@ -261,5 +262,21 @@ public abstract class GroupRepositoryMock {
    */
   public static Set<String> getMembershipIds(String userName) {
     return getMembership(userName).stream().map(Group::getId).collect(Collectors.toSet());
+  }
+
+  /**
+   * Gets status.
+   *
+   * @param userName the user name
+   * @return the status
+   */
+  public static Status getStatus(String userName) {
+    if (userName == null) {
+      throw new IllegalArgumentException("User name must be present.");
+    }
+    return Status.builder()
+        .membershipSize(getMembership(userName).size())
+        .ownedGroupSize(getEditableGroups(userName).size())
+        .build();
   }
 }

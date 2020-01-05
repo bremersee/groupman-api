@@ -19,10 +19,10 @@ package org.bremersee.groupman.mock;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
-import javax.validation.Valid;
 import org.bremersee.groupman.api.GroupControllerApi;
 import org.bremersee.groupman.model.Group;
 import org.bremersee.groupman.model.GroupIdList;
+import org.bremersee.groupman.model.Status;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -56,7 +56,7 @@ public class GroupControllerMock implements GroupControllerApi {
   }
 
   @Override
-  public ResponseEntity<Group> createGroup(@Valid Group group) {
+  public ResponseEntity<Group> createGroup(Group group) {
     return ResponseEntity.ok(GroupRepositoryMock.createGroup(group));
   }
 
@@ -101,13 +101,18 @@ public class GroupControllerMock implements GroupControllerApi {
   }
 
   @Override
+  public ResponseEntity<Status> getStatus() {
+    return ResponseEntity.ok(GroupRepositoryMock.getStatus(userNameSupplier.get()));
+  }
+
+  @Override
   public ResponseEntity<List<Group>> getUsableGroups() {
     return ResponseEntity.ok(GroupRepositoryMock
         .getUsableGroups(userNameSupplier.get()));
   }
 
   @Override
-  public ResponseEntity<Group> updateGroup(String id, @Valid Group group) {
+  public ResponseEntity<Group> updateGroup(String id, Group group) {
     Group newGroup = GroupRepositoryMock.updateGroup(id, group);
     if (newGroup == null) {
       throw new ForbiddenException();
@@ -115,12 +120,4 @@ public class GroupControllerMock implements GroupControllerApi {
     return ResponseEntity.ok(newGroup);
   }
 
-  @Override
-  public ResponseEntity<Group> patchGroup(String id, @Valid Group group) {
-    Group newGroup = GroupRepositoryMock.updateGroup(id, group);
-    if (newGroup == null) {
-      throw new ForbiddenException();
-    }
-    return ResponseEntity.ok(newGroup);
-  }
 }

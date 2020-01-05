@@ -69,4 +69,5 @@ public class GroupAdminWebfluxControllerMock implements GroupAdminWebfluxControl
   public Flux<Group> findGroupsByIds(List<String> ids) {
     return Flux.just(GroupRepositoryMock.getGroupsByIds(ids).toArray(new Group[0]));
   }
+
 }

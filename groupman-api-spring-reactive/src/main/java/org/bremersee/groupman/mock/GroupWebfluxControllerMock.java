@@ -19,10 +19,10 @@ package org.bremersee.groupman.mock;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
-import javax.validation.Valid;
 import org.bremersee.exception.ServiceException;
 import org.bremersee.groupman.api.GroupWebfluxControllerApi;
 import org.bremersee.groupman.model.Group;
+import org.bremersee.groupman.model.Status;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -80,15 +80,6 @@ public class GroupWebfluxControllerMock implements GroupWebfluxControllerApi {
   }
 
   @Override
-  public Mono<Group> patchGroup(String id, @Valid Group group) {
-    Group newGroup = GroupRepositoryMock.updateGroup(id, group);
-    if (newGroup == null) {
-      throw ServiceException.forbidden("Group", id);
-    }
-    return Mono.just(newGroup);
-  }
-
-  @Override
   public Mono<Void> deleteGroup(String groupId) {
     GroupRepositoryMock.deleteGroup(groupId);
     return Mono.empty();
@@ -121,5 +112,10 @@ public class GroupWebfluxControllerMock implements GroupWebfluxControllerApi {
   public Mono<Set<String>> getMembershipIds() {
     Set<String> ids = GroupRepositoryMock.getMembershipIds(userNameSupplier.get());
     return Mono.just(ids);
+  }
+
+  @Override
+  public Mono<Status> getStatus() {
+    return Mono.just(GroupRepositoryMock.getStatus(userNameSupplier.get()));
   }
 }
