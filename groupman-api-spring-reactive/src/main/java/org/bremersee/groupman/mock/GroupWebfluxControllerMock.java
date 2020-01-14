@@ -65,7 +65,7 @@ public class GroupWebfluxControllerMock implements GroupWebfluxControllerApi {
   public Mono<Group> getGroupById(String groupId) {
     Group group = GroupRepositoryMock.getGroupById(groupId);
     if (group == null) {
-      throw ServiceException.forbidden("Group", groupId);
+      return Mono.error(ServiceException.forbidden("Group", groupId));
     }
     return Mono.just(group);
   }
@@ -74,7 +74,7 @@ public class GroupWebfluxControllerMock implements GroupWebfluxControllerApi {
   public Mono<Group> updateGroup(String groupId, Group group) {
     Group newGroup = GroupRepositoryMock.updateGroup(groupId, group);
     if (newGroup == null) {
-      throw ServiceException.forbidden("Group", groupId);
+      return Mono.error(ServiceException.forbidden("Group", groupId));
     }
     return Mono.just(newGroup);
   }

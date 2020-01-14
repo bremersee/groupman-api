@@ -82,6 +82,14 @@ public abstract class GroupRepositoryMock {
   private static final Map<String, Group> DB = new ConcurrentHashMap<>();
 
   static {
+    reset();
+  }
+
+  /**
+   * Reset.
+   */
+  public static void reset() {
+    DB.clear();
     Group group0 = new Group();
     group0.setCreatedAt(OffsetDateTime.now());
     group0.setCreatedBy(GROUP_0_OWNER);
@@ -150,7 +158,7 @@ public abstract class GroupRepositoryMock {
    * Update group.
    *
    * @param groupId the group id
-   * @param group   the group
+   * @param group the group
    * @return the group
    */
   public static Group updateGroup(String groupId, Group group) {

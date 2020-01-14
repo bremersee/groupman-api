@@ -44,7 +44,7 @@ public class GroupAdminControllerMock implements GroupAdminControllerApi {
   public ResponseEntity<Group> findGroupById(String id) {
     Group group = GroupRepositoryMock.getGroupById(id);
     if (group == null) {
-      throw new NotFoundException();
+      return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok(group);
   }
@@ -63,7 +63,7 @@ public class GroupAdminControllerMock implements GroupAdminControllerApi {
   public ResponseEntity<Group> modifyGroup(String id, Group group) {
     Group newGroup = GroupRepositoryMock.updateGroup(id, group);
     if (newGroup == null) {
-      throw new NotFoundException();
+      return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok(newGroup);
   }

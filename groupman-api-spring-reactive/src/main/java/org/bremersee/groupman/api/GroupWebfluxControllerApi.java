@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
-import org.bremersee.groupman.model.GroupIdList;
 import org.bremersee.groupman.model.Status;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -98,7 +97,7 @@ public interface GroupWebfluxControllerApi {
   /**
    * Update group.
    *
-   * @param id    the group id
+   * @param id the group id
    * @param group the group
    * @return the group
    */
@@ -241,7 +240,7 @@ public interface GroupWebfluxControllerApi {
   @ApiOperation(
       value = "Get membership IDs.",
       nickname = "getMembershipIds",
-      response = GroupIdList.class,
+      response = String.class,
       tags = {"group-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "OK", response = String.class, responseContainer = "List")

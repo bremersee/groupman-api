@@ -23,6 +23,7 @@ import org.bremersee.groupman.api.GroupControllerApi;
 import org.bremersee.groupman.model.Group;
 import org.bremersee.groupman.model.GroupIdList;
 import org.bremersee.groupman.model.Status;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -76,7 +77,7 @@ public class GroupControllerMock implements GroupControllerApi {
   public ResponseEntity<Group> getGroupById(String id) {
     Group group = GroupRepositoryMock.getGroupById(id);
     if (group == null) {
-      throw new ForbiddenException();
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
     return ResponseEntity.ok(group);
   }
@@ -115,7 +116,7 @@ public class GroupControllerMock implements GroupControllerApi {
   public ResponseEntity<Group> updateGroup(String id, Group group) {
     Group newGroup = GroupRepositoryMock.updateGroup(id, group);
     if (newGroup == null) {
-      throw new ForbiddenException();
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
     return ResponseEntity.ok(newGroup);
   }

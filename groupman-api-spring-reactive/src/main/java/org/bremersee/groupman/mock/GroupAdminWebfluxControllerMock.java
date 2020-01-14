@@ -45,7 +45,7 @@ public class GroupAdminWebfluxControllerMock implements GroupAdminWebfluxControl
   public Mono<Group> findGroupById(String groupId) {
     Group group = GroupRepositoryMock.getGroupById(groupId);
     if (group == null) {
-      throw ServiceException.notFound("Group", groupId);
+      return Mono.error(ServiceException.notFound("Group", groupId));
     }
     return Mono.just(group);
   }
@@ -54,7 +54,7 @@ public class GroupAdminWebfluxControllerMock implements GroupAdminWebfluxControl
   public Mono<Group> modifyGroup(String groupId, Group group) {
     Group newGroup = GroupRepositoryMock.updateGroup(groupId, group);
     if (newGroup == null) {
-      throw ServiceException.notFound("Group", groupId);
+      return Mono.error(ServiceException.notFound("Group", groupId));
     }
     return Mono.just(newGroup);
   }
