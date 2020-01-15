@@ -36,6 +36,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * The group controller api.
+ *
+ * @author Christian Bremer
  */
 @Api(value = "GroupController")
 @Validated

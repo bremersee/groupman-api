@@ -26,6 +26,8 @@ import lombok.ToString;
 
 /**
  * A list with group identifiers.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "A list with group identifiers.")
 @EqualsAndHashCode(callSuper = true)

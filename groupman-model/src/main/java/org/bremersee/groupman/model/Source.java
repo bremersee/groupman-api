@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * The source of a group. Only administrators can use other values than 'INTERNAL'.
+ *
+ * @author Christian Bremer
  */
 @SuppressWarnings("unused")
 public enum Source {

@@ -34,6 +34,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * The group.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "A group.")
 @Validated
