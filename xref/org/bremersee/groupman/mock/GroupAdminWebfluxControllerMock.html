@@ -53,7 +53,7 @@
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">public</strong> Mono&lt;Group&gt; findGroupById(String groupId) {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      <a name="Group" href="../../../../org/bremersee/groupman/model/Group.html#Group">Group</a> group = GroupRepositoryMock.getGroupById(groupId);
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">if</strong> (group == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>        <strong class="jxr_keyword">throw</strong> ServiceException.notFound(<span class="jxr_string">"Group"</span>, groupId);
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>        <strong class="jxr_keyword">return</strong> Mono.error(ServiceException.notFound(<span class="jxr_string">"Group"</span>, groupId));
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">return</strong> Mono.just(group);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>    }
@@ -62,7 +62,7 @@
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>    <strong class="jxr_keyword">public</strong> Mono&lt;Group&gt; modifyGroup(String groupId, <a name="Group" href="../../../../org/bremersee/groupman/model/Group.html#Group">Group</a> group) {
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      <a name="Group" href="../../../../org/bremersee/groupman/model/Group.html#Group">Group</a> newGroup = GroupRepositoryMock.updateGroup(groupId, group);
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">if</strong> (newGroup == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>        <strong class="jxr_keyword">throw</strong> ServiceException.notFound(<span class="jxr_string">"Group"</span>, groupId);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>        <strong class="jxr_keyword">return</strong> Mono.error(ServiceException.notFound(<span class="jxr_string">"Group"</span>, groupId));
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">return</strong> Mono.just(newGroup);
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>    }
@@ -77,7 +77,8 @@
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>    <strong class="jxr_keyword">public</strong> Flux&lt;Group&gt; findGroupsByIds(List&lt;String&gt; ids) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">return</strong> Flux.just(GroupRepositoryMock.getGroupsByIds(ids).toArray(<strong class="jxr_keyword">new</strong> <a name="Group" href="../../../../org/bremersee/groupman/model/Group.html#Group">Group</a>[0]));
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>    }
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  }
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2020 <a href="http://bremersee.org">bremersee.org</a>. All rights reserved.</div>

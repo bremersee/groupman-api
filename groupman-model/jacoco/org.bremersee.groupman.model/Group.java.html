@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Group.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">groupman-model</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.groupman.model</a> &gt; <span class="el_source">Group.java</span></div><h1>Group.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2019 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.bremersee.groupman.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.validation.annotation.Validated;
+
+/**
+ * The group.
+ *
+ * @author Christian Bremer
+ */
+@ApiModel(description = &quot;A group.&quot;)
+@Validated
+@JsonIgnoreProperties(ignoreUnknown = true)
+<span class="pc bpc" id="L43" title="35 of 86 branches missed.">@EqualsAndHashCode</span>
+<span class="fc" id="L44">@ToString</span>
+<span class="fc" id="L45">@NoArgsConstructor</span>
+@SuppressWarnings(&quot;unused&quot;)
+public class Group implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+<span class="fc" id="L51">  @JsonProperty(&quot;id&quot;)</span>
+  private String id = null;
+
+<span class="fc" id="L54">  @JsonProperty(&quot;version&quot;)</span>
+  private Long version = null;
+
+<span class="fc" id="L57">  @JsonProperty(&quot;createdBy&quot;)</span>
+  private String createdBy = null;
+
+<span class="fc" id="L60">  @JsonProperty(&quot;createdAt&quot;)</span>
+  private OffsetDateTime createdAt = null;
+
+<span class="fc" id="L63">  @JsonProperty(&quot;modifiedAt&quot;)</span>
+  private OffsetDateTime modifiedAt = null;
+
+<span class="fc" id="L66">  @JsonProperty(&quot;source&quot;)</span>
+  private Source source = null;
+
+<span class="fc" id="L69">  @JsonProperty(value = &quot;name&quot;, required = true)</span>
+  private String name = null;
+
+<span class="fc" id="L72">  @JsonProperty(&quot;description&quot;)</span>
+  private String description = null;
+
+<span class="fc" id="L75">  @JsonProperty(&quot;members&quot;)</span>
+  private List&lt;String&gt; members = null;
+
+<span class="fc" id="L78">  @JsonProperty(&quot;owners&quot;)</span>
+  private List&lt;String&gt; owners = null;
+
+  /**
+   * Instantiates a new group.
+   *
+   * @param id          the id
+   * @param version     the version
+   * @param createdBy   the created by
+   * @param createdAt   the created at
+   * @param modifiedAt  the modified at
+   * @param source      the source
+   * @param name        the name
+   * @param description the description
+   * @param members     the members
+   * @param owners      the owners
+   */
+<span class="pc" id="L95">  @Builder(toBuilder = true)</span>
+  public Group(String id, Long version, String createdBy, OffsetDateTime createdAt,
+      OffsetDateTime modifiedAt, Source source, String name, String description,
+<span class="fc" id="L98">      List&lt;String&gt; members, List&lt;String&gt; owners) {</span>
+<span class="fc" id="L99">    this.id = id;</span>
+<span class="fc" id="L100">    this.version = version;</span>
+<span class="fc" id="L101">    this.createdBy = createdBy;</span>
+<span class="fc" id="L102">    this.createdAt = createdAt;</span>
+<span class="fc" id="L103">    this.modifiedAt = modifiedAt;</span>
+<span class="fc" id="L104">    this.source = source;</span>
+<span class="fc" id="L105">    this.name = name;</span>
+<span class="fc" id="L106">    this.description = description;</span>
+<span class="fc" id="L107">    this.members = members;</span>
+<span class="fc" id="L108">    this.owners = owners;</span>
+<span class="fc" id="L109">  }</span>
+
+  /**
+   * Gets id.
+   *
+   * @return the id
+   */
+  @ApiModelProperty(value = &quot;The id of the group.&quot;)
+  @Size(max = 255)
+  public String getId() {
+<span class="fc" id="L119">    return id;</span>
+  }
+
+  /**
+   * Sets id.
+   *
+   * @param id the id
+   */
+  public void setId(String id) {
+<span class="fc" id="L128">    this.id = id;</span>
+<span class="fc" id="L129">  }</span>
+
+  /**
+   * Gets version.
+   *
+   * @return the version
+   */
+  @ApiModelProperty(value = &quot;The database version number.&quot;)
+  public Long getVersion() {
+<span class="fc" id="L138">    return version;</span>
+  }
+
+  /**
+   * Sets version.
+   *
+   * @param version the version
+   */
+  public void setVersion(Long version) {
+<span class="fc" id="L147">    this.version = version;</span>
+<span class="fc" id="L148">  }</span>
+
+  /**
+   * Gets created by.
+   *
+   * @return the created by
+   */
+  @ApiModelProperty(value = &quot;The user who created the group.&quot;)
+  @Size(max = 255)
+  public String getCreatedBy() {
+<span class="fc" id="L158">    return createdBy;</span>
+  }
+
+  /**
+   * Sets created by.
+   *
+   * @param createdBy the created by
+   */
+  public void setCreatedBy(String createdBy) {
+<span class="fc" id="L167">    this.createdBy = createdBy;</span>
+<span class="fc" id="L168">  }</span>
+
+  /**
+   * Gets created at.
+   *
+   * @return the created at
+   */
+  @ApiModelProperty(value = &quot;The creation time.&quot;)
+  public OffsetDateTime getCreatedAt() {
+<span class="fc" id="L177">    return createdAt;</span>
+  }
+
+  /**
+   * Sets created at.
+   *
+   * @param createdAt the created at
+   */
+  public void setCreatedAt(OffsetDateTime createdAt) {
+<span class="fc" id="L186">    this.createdAt = createdAt;</span>
+<span class="fc" id="L187">  }</span>
+
+  /**
+   * Gets modified at.
+   *
+   * @return the modified at
+   */
+  @ApiModelProperty(value = &quot;The last modification time.&quot;)
+  public OffsetDateTime getModifiedAt() {
+<span class="fc" id="L196">    return modifiedAt;</span>
+  }
+
+  /**
+   * Sets modified at.
+   *
+   * @param modifiedAt the modified at
+   */
+  public void setModifiedAt(OffsetDateTime modifiedAt) {
+<span class="fc" id="L205">    this.modifiedAt = modifiedAt;</span>
+<span class="fc" id="L206">  }</span>
+
+  /**
+   * Gets source.
+   *
+   * @return the source
+   */
+  @ApiModelProperty(value = &quot;The source.&quot;)
+  public Source getSource() {
+<span class="fc" id="L215">    return source;</span>
+  }
+
+  /**
+   * Sets source.
+   *
+   * @param source the source
+   */
+  public void setSource(Source source) {
+<span class="fc" id="L224">    this.source = source;</span>
+<span class="fc" id="L225">  }</span>
+
+  /**
+   * Gets name.
+   *
+   * @return the name
+   */
+  @ApiModelProperty(required = true, value = &quot;The name of the group.&quot;)
+  @NotNull
+  @Size(min = 3, max = 75)
+  public String getName() {
+<span class="fc" id="L236">    return name;</span>
+  }
+
+  /**
+   * Sets name.
+   *
+   * @param name the name
+   */
+  public void setName(String name) {
+<span class="fc" id="L245">    this.name = name;</span>
+<span class="fc" id="L246">  }</span>
+
+  /**
+   * Gets description.
+   *
+   * @return the description
+   */
+  @ApiModelProperty(value = &quot;The description of the group.&quot;)
+  @Size(max = 255)
+  public String getDescription() {
+<span class="fc" id="L256">    return description;</span>
+  }
+
+  /**
+   * Sets description.
+   *
+   * @param description the description
+   */
+  public void setDescription(String description) {
+<span class="fc" id="L265">    this.description = description;</span>
+<span class="fc" id="L266">  }</span>
+
+  /**
+   * Gets members.
+   *
+   * @return the members
+   */
+  @ApiModelProperty(value = &quot;The members of the group.&quot;)
+  public List&lt;String&gt; getMembers() {
+<span class="fc bfc" id="L275" title="All 2 branches covered.">    if (members == null) {</span>
+<span class="fc" id="L276">      members = new ArrayList&lt;&gt;();</span>
+    }
+<span class="fc" id="L278">    return members;</span>
+  }
+
+  /**
+   * Sets members.
+   *
+   * @param members the members
+   */
+  public void setMembers(List&lt;String&gt; members) {
+<span class="fc" id="L287">    this.members = members;</span>
+<span class="fc" id="L288">  }</span>
+
+  /**
+   * Gets owners.
+   *
+   * @return the owners
+   */
+  @ApiModelProperty(value = &quot;The owners of the group.&quot;)
+  public List&lt;String&gt; getOwners() {
+<span class="fc bfc" id="L297" title="All 2 branches covered.">    if (owners == null) {</span>
+<span class="fc" id="L298">      owners = new ArrayList&lt;&gt;();</span>
+    }
+<span class="fc" id="L300">    return owners;</span>
+  }
+
+  /**
+   * Sets owners.
+   *
+   * @param owners the owners
+   */
+  public void setOwners(List&lt;String&gt; owners) {
+<span class="fc" id="L309">    this.owners = owners;</span>
+<span class="fc" id="L310">  }</span>
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

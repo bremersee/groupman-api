@@ -29,45 +29,46 @@ import reactor.core.publisher.Mono;
  * @author Christian Bremer
  */
 @SuppressWarnings(&quot;unused&quot;)
-<span class="nc" id="L32">public class GroupAdminWebfluxControllerMock implements GroupAdminWebfluxControllerApi {</span>
+<span class="fc" id="L32">public class GroupAdminWebfluxControllerMock implements GroupAdminWebfluxControllerApi {</span>
 
   @Override
   public Flux&lt;Group&gt; findGroups() {
-<span class="nc" id="L36">    return Flux.just(GroupRepositoryMock.getGroups().toArray(new Group[0]));</span>
+<span class="fc" id="L36">    return Flux.just(GroupRepositoryMock.getGroups().toArray(new Group[0]));</span>
   }
 
   @Override
   public Mono&lt;Group&gt; addGroup(Group group) {
-<span class="nc" id="L41">    return Mono.justOrEmpty(GroupRepositoryMock.createGroup(group));</span>
+<span class="fc" id="L41">    return Mono.justOrEmpty(GroupRepositoryMock.createGroup(group));</span>
   }
 
   @Override
   public Mono&lt;Group&gt; findGroupById(String groupId) {
-<span class="nc" id="L46">    Group group = GroupRepositoryMock.getGroupById(groupId);</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">    if (group == null) {</span>
-<span class="nc" id="L48">      throw ServiceException.notFound(&quot;Group&quot;, groupId);</span>
+<span class="fc" id="L46">    Group group = GroupRepositoryMock.getGroupById(groupId);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">    if (group == null) {</span>
+<span class="fc" id="L48">      return Mono.error(ServiceException.notFound(&quot;Group&quot;, groupId));</span>
     }
-<span class="nc" id="L50">    return Mono.just(group);</span>
+<span class="fc" id="L50">    return Mono.just(group);</span>
   }
 
   @Override
   public Mono&lt;Group&gt; modifyGroup(String groupId, Group group) {
-<span class="nc" id="L55">    Group newGroup = GroupRepositoryMock.updateGroup(groupId, group);</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">    if (newGroup == null) {</span>
-<span class="nc" id="L57">      throw ServiceException.notFound(&quot;Group&quot;, groupId);</span>
+<span class="fc" id="L55">    Group newGroup = GroupRepositoryMock.updateGroup(groupId, group);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">    if (newGroup == null) {</span>
+<span class="fc" id="L57">      return Mono.error(ServiceException.notFound(&quot;Group&quot;, groupId));</span>
     }
-<span class="nc" id="L59">    return Mono.just(newGroup);</span>
+<span class="fc" id="L59">    return Mono.just(newGroup);</span>
   }
 
   @Override
   public Mono&lt;Void&gt; removeGroup(String groupId) {
-<span class="nc" id="L64">    GroupRepositoryMock.deleteGroup(groupId);</span>
-<span class="nc" id="L65">    return Mono.empty();</span>
+<span class="fc" id="L64">    GroupRepositoryMock.deleteGroup(groupId);</span>
+<span class="fc" id="L65">    return Mono.empty();</span>
   }
 
   @Override
   public Flux&lt;Group&gt; findGroupsByIds(List&lt;String&gt; ids) {
-<span class="nc" id="L70">    return Flux.just(GroupRepositoryMock.getGroupsByIds(ids).toArray(new Group[0]));</span>
+<span class="fc" id="L70">    return Flux.just(GroupRepositoryMock.getGroupsByIds(ids).toArray(new Group[0]));</span>
   }
+
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

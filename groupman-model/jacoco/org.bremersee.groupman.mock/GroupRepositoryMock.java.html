@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GroupRepositoryMock.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">groupman-model</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.groupman.mock</a> &gt; <span class="el_source">GroupRepositoryMock.java</span></div><h1>GroupRepositoryMock.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2019 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.bremersee.groupman.mock;
+
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+import org.bremersee.groupman.model.Group;
+import org.bremersee.groupman.model.Source;
+import org.bremersee.groupman.model.Status;
+
+/**
+ * The group repository mock.
+ *
+ * @author Christian Bremer
+ */
+@SuppressWarnings({&quot;unused&quot;, &quot;WeakerAccess&quot;})
+<span class="nc" id="L40">public abstract class GroupRepositoryMock {</span>
+
+  /**
+   * The constant GROUP_0_ID.
+   */
+  public static final String GROUP_0_ID = &quot;0571f182-048c-4351-9461-a91e945e4c1f&quot;;
+
+  /**
+   * The constant GROUP_0_OWNER.
+   */
+  public static final String GROUP_0_OWNER = &quot;plato&quot;;
+
+  /**
+   * The constant GROUP_0_MEMBER_0.
+   */
+  public static final String GROUP_0_MEMBER_0 = &quot;sokrates&quot;;
+
+  /**
+   * The constant GROUP_0_MEMBER_1.
+   */
+  public static final String GROUP_0_MEMBER_1 = &quot;aristoteles&quot;;
+
+  /**
+   * The constant GROUP_1_ID.
+   */
+  public static final String GROUP_1_ID = &quot;0d742bc4-266a-441d-9766-faf67aff918e&quot;;
+
+  /**
+   * The constant GROUP_1_OWNER.
+   */
+  public static final String GROUP_1_OWNER = &quot;kant&quot;;
+
+  /**
+   * The constant GROUP_1_MEMBER_0.
+   */
+  public static final String GROUP_1_MEMBER_0 = &quot;schopenhauer&quot;;
+
+  /**
+   * The constant GROUP_1_MEMBER_1.
+   */
+  public static final String GROUP_1_MEMBER_1 = &quot;kierkegaard&quot;;
+
+<span class="fc" id="L82">  private static final Map&lt;String, Group&gt; DB = new ConcurrentHashMap&lt;&gt;();</span>
+
+  static {
+<span class="fc" id="L85">    reset();</span>
+<span class="fc" id="L86">  }</span>
+
+  /**
+   * Reset.
+   */
+  public static void reset() {
+<span class="fc" id="L92">    DB.clear();</span>
+<span class="fc" id="L93">    Group group0 = new Group();</span>
+<span class="fc" id="L94">    group0.setCreatedAt(OffsetDateTime.now());</span>
+<span class="fc" id="L95">    group0.setCreatedBy(GROUP_0_OWNER);</span>
+<span class="fc" id="L96">    group0.setDescription(&quot;Old greek philosophers group&quot;);</span>
+<span class="fc" id="L97">    group0.setId(GROUP_0_ID);</span>
+<span class="fc" id="L98">    group0.setMembers(Arrays.asList(GROUP_0_OWNER, GROUP_0_MEMBER_0, GROUP_0_MEMBER_1));</span>
+<span class="fc" id="L99">    group0.setModifiedAt(OffsetDateTime.now());</span>
+<span class="fc" id="L100">    group0.setName(&quot;Old greek philosophers&quot;);</span>
+<span class="fc" id="L101">    group0.setOwners(Collections.singletonList(GROUP_0_OWNER));</span>
+<span class="fc" id="L102">    group0.setSource(Source.INTERNAL);</span>
+<span class="fc" id="L103">    group0.setVersion(1L);</span>
+<span class="fc" id="L104">    DB.put(group0.getId(), group0);</span>
+
+<span class="fc" id="L106">    Group group1 = new Group();</span>
+<span class="fc" id="L107">    group1.setCreatedAt(OffsetDateTime.now());</span>
+<span class="fc" id="L108">    group1.setCreatedBy(GROUP_1_OWNER);</span>
+<span class="fc" id="L109">    group1.setDescription(&quot;Kant group&quot;);</span>
+<span class="fc" id="L110">    group1.setId(GROUP_1_ID);</span>
+<span class="fc" id="L111">    group1.setMembers(</span>
+<span class="fc" id="L112">        Arrays.asList(GROUP_1_OWNER, GROUP_1_MEMBER_0, GROUP_1_MEMBER_1, GROUP_0_MEMBER_1));</span>
+<span class="fc" id="L113">    group1.setModifiedAt(OffsetDateTime.now());</span>
+<span class="fc" id="L114">    group1.setName(&quot;Kant and 'friends'&quot;);</span>
+<span class="fc" id="L115">    group1.setOwners(Collections.singletonList(GROUP_1_OWNER));</span>
+<span class="fc" id="L116">    group1.setSource(Source.INTERNAL);</span>
+<span class="fc" id="L117">    group1.setVersion(1L);</span>
+<span class="fc" id="L118">    DB.put(group1.getId(), group1);</span>
+<span class="fc" id="L119">  }</span>
+
+  /**
+   * Create group.
+   *
+   * @param group the group
+   * @return the group
+   */
+  public static Group createGroup(Group group) {
+<span class="fc bfc" id="L128" title="All 2 branches covered.">    if (group == null) {</span>
+<span class="fc" id="L129">      throw new IllegalArgumentException(&quot;Illegal group&quot;);</span>
+    }
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">    if (group.getId() == null) {</span>
+<span class="fc" id="L132">      group.setId(UUID.randomUUID().toString());</span>
+    }
+<span class="fc" id="L134">    DB.put(group.getId(), group);</span>
+<span class="fc" id="L135">    return group;</span>
+  }
+
+  /**
+   * Gets groups.
+   *
+   * @return the groups
+   */
+  public static List&lt;Group&gt; getGroups() {
+<span class="fc" id="L144">    return new ArrayList&lt;&gt;(DB.values());</span>
+  }
+
+  /**
+   * Gets group by id.
+   *
+   * @param groupId the group id
+   * @return the group by id
+   */
+  public static Group getGroupById(String groupId) {
+<span class="fc" id="L154">    return DB.get(groupId);</span>
+  }
+
+  /**
+   * Update group.
+   *
+   * @param groupId the group id
+   * @param group the group
+   * @return the group
+   */
+  public static Group updateGroup(String groupId, Group group) {
+<span class="fc bfc" id="L165" title="All 2 branches covered.">    if (groupId == null) {</span>
+<span class="fc" id="L166">      throw new IllegalArgumentException(&quot;Illegal group ID&quot;);</span>
+    }
+<span class="fc bfc" id="L168" title="All 2 branches covered.">    if (group == null) {</span>
+<span class="fc" id="L169">      throw new IllegalArgumentException(&quot;Illegal group&quot;);</span>
+    }
+<span class="fc bfc" id="L171" title="All 2 branches covered.">    if (!DB.containsKey(groupId)) {</span>
+<span class="fc" id="L172">      return null;</span>
+    }
+<span class="fc" id="L174">    group.setId(groupId);</span>
+<span class="fc" id="L175">    DB.put(groupId, group);</span>
+<span class="fc" id="L176">    return group;</span>
+  }
+
+  /**
+   * Delete group.
+   *
+   * @param groupId the group id
+   */
+  public static void deleteGroup(String groupId) {
+<span class="fc" id="L185">    DB.remove(groupId);</span>
+<span class="fc" id="L186">  }</span>
+
+  /**
+   * Gets groups by ids.
+   *
+   * @param ids the ids
+   * @return the groups by ids
+   */
+  public static List&lt;Group&gt; getGroupsByIds(List&lt;String&gt; ids) {
+<span class="fc" id="L195">    List&lt;Group&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">    if (ids != null) {</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">      for (String id : ids) {</span>
+<span class="fc" id="L198">        Group group = DB.get(id);</span>
+<span class="pc bpc" id="L199" title="1 of 2 branches missed.">        if (group != null) {</span>
+<span class="fc" id="L200">          list.add(group);</span>
+        }
+<span class="fc" id="L202">      }</span>
+    }
+<span class="fc" id="L204">    return list;</span>
+  }
+
+  /**
+   * Gets editable groups.
+   *
+   * @param userName the user name
+   * @return the editable groups
+   */
+  public static List&lt;Group&gt; getEditableGroups(String userName) {
+<span class="fc bfc" id="L214" title="All 2 branches covered.">    if (userName == null) {</span>
+<span class="fc" id="L215">      throw new IllegalArgumentException(&quot;User name must be present.&quot;);</span>
+    }
+<span class="fc" id="L217">    List&lt;Group&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">    for (Group group : DB.values()) {</span>
+<span class="fc bfc" id="L219" title="All 2 branches covered.">      if (userName.equals(group.getCreatedBy())</span>
+<span class="pc bpc" id="L220" title="2 of 4 branches missed.">          || (group.getOwners() != null &amp;&amp; group.getOwners().contains(userName))) {</span>
+<span class="fc" id="L221">        list.add(group);</span>
+      }
+<span class="fc" id="L223">    }</span>
+<span class="fc" id="L224">    return list;</span>
+  }
+
+  /**
+   * Gets usable groups.
+   *
+   * @param userName the user name
+   * @return the usable groups
+   */
+  public static List&lt;Group&gt; getUsableGroups(String userName) {
+<span class="fc bfc" id="L234" title="All 2 branches covered.">    if (userName == null) {</span>
+<span class="fc" id="L235">      throw new IllegalArgumentException(&quot;User name must be present.&quot;);</span>
+    }
+<span class="fc" id="L237">    Set&lt;Group&gt; set = new HashSet&lt;&gt;(getEditableGroups(userName));</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">    for (Group group : DB.values()) {</span>
+<span class="pc bpc" id="L239" title="1 of 4 branches missed.">      if (group.getMembers() != null &amp;&amp; group.getMembers().contains(userName)) {</span>
+<span class="fc" id="L240">        set.add(group);</span>
+      }
+<span class="fc" id="L242">    }</span>
+<span class="fc" id="L243">    return new ArrayList&lt;&gt;(set);</span>
+  }
+
+  /**
+   * Gets membership.
+   *
+   * @param userName the user name
+   * @return the membership
+   */
+  public static List&lt;Group&gt; getMembership(String userName) {
+<span class="fc bfc" id="L253" title="All 2 branches covered.">    if (userName == null) {</span>
+<span class="fc" id="L254">      throw new IllegalArgumentException(&quot;User name must be present.&quot;);</span>
+    }
+<span class="fc" id="L256">    List&lt;Group&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L257" title="All 2 branches covered.">    for (Group group : DB.values()) {</span>
+<span class="pc bpc" id="L258" title="1 of 4 branches missed.">      if (group.getMembers() != null &amp;&amp; group.getMembers().contains(userName)) {</span>
+<span class="fc" id="L259">        list.add(group);</span>
+      }
+<span class="fc" id="L261">    }</span>
+<span class="fc" id="L262">    return list;</span>
+  }
+
+  /**
+   * Gets membership ids.
+   *
+   * @param userName the user name
+   * @return the membership ids
+   */
+  public static Set&lt;String&gt; getMembershipIds(String userName) {
+<span class="fc" id="L272">    return getMembership(userName).stream().map(Group::getId).collect(Collectors.toSet());</span>
+  }
+
+  /**
+   * Gets status.
+   *
+   * @param userName the user name
+   * @return the status
+   */
+  public static Status getStatus(String userName) {
+<span class="fc bfc" id="L282" title="All 2 branches covered.">    if (userName == null) {</span>
+<span class="fc" id="L283">      throw new IllegalArgumentException(&quot;User name must be present.&quot;);</span>
+    }
+<span class="fc" id="L285">    return Status.builder()</span>
+<span class="fc" id="L286">        .membershipSize(getMembership(userName).size())</span>
+<span class="fc" id="L287">        .ownedGroupSize(getEditableGroups(userName).size())</span>
+<span class="fc" id="L288">        .build();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
