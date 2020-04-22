@@ -16,7 +16,15 @@
 
 package org.bremersee.groupman.api;
 
-import org.bremersee.test.web.RestApiAnnotationTester;
+import static org.bremersee.test.web.RestApiTesterExclusion.exclusionBuilder;
+import static org.bremersee.test.web.RestApiTesterPath.PathType.ANNOTATION;
+import static org.bremersee.test.web.RestApiTesterPath.PathType.ATTRIBUTE;
+import static org.bremersee.test.web.RestApiTesterPath.PathType.CLASS;
+import static org.bremersee.test.web.RestApiTesterPath.PathType.METHOD;
+import static org.bremersee.test.web.RestApiTesterPath.pathBuilder;
+
+import org.bremersee.test.web.RestApiAssertionType;
+import org.bremersee.test.web.RestApiTester;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -27,12 +35,54 @@ import org.junit.jupiter.api.Test;
 class GroupAdminWebfluxControllerApiTest {
 
   /**
-   * Assert same annotations.
+   * Assert same annotations on group admin controller.
    */
   @Test
-  void assertSameAnnotations() {
-    RestApiAnnotationTester.assertSameApiAnnotations(
+  void assertSameAnnotationsOnGroupAdminController() {
+    RestApiTester.assertSameApi(
         GroupAdminControllerApi.class,
         GroupAdminWebfluxControllerApi.class);
+  }
+
+  /**
+   * Assert same annotations on group controller.
+   */
+  @Test
+  void assertSameAnnotationsOnGroupController() {
+    RestApiTester.assertSameApi(
+        GroupControllerApi.class,
+        GroupWebfluxControllerApi.class,
+        exclusionBuilder()
+            .path(pathBuilder()
+                .add(CLASS, "GroupWebfluxControllerApi")
+                .add(METHOD, "getMembershipIds")
+                .add(ANNOTATION, "ApiOperation")
+                .add(ATTRIBUTE, "response")
+                .build())
+            .type(RestApiAssertionType.SAME_ANNOTATION_ATTRIBUTE_VALUE)
+            .build(),
+        exclusionBuilder()
+            .path(pathBuilder()
+                .add(CLASS, "GroupWebfluxControllerApi")
+                .add(METHOD, "getMembershipIds")
+                .add(ANNOTATION, "ApiResponses")
+                .add(ATTRIBUTE, "value")
+                .add(ANNOTATION, "ApiResponse")
+                .add(ATTRIBUTE, "response")
+                .build())
+            .type(RestApiAssertionType.SAME_ANNOTATION_ATTRIBUTE_VALUE)
+            .build(),
+        exclusionBuilder()
+            .path(pathBuilder()
+                .add(CLASS, "GroupWebfluxControllerApi")
+                .add(METHOD, "getMembershipIds")
+                .add(ANNOTATION, "ApiResponses")
+                .add(ATTRIBUTE, "value")
+                .add(ANNOTATION, "ApiResponse")
+                .add(ATTRIBUTE, "responseContainer")
+                .build())
+            .type(RestApiAssertionType.SAME_ANNOTATION_ATTRIBUTE_VALUE)
+            .build()
+    );
   }
 }

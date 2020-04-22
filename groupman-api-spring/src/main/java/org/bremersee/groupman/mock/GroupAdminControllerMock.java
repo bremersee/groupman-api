@@ -17,7 +17,6 @@
 package org.bremersee.groupman.mock;
 
 import java.util.List;
-import javax.validation.Valid;
 import org.bremersee.groupman.api.GroupAdminControllerApi;
 import org.bremersee.groupman.model.Group;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,7 @@ import org.springframework.http.ResponseEntity;
 public class GroupAdminControllerMock implements GroupAdminControllerApi {
 
   @Override
-  public ResponseEntity<Group> addGroup(@Valid Group group) {
+  public ResponseEntity<Group> addGroup(Group group) {
     return ResponseEntity.ok(GroupRepositoryMock.createGroup(group));
   }
 
@@ -45,7 +44,7 @@ public class GroupAdminControllerMock implements GroupAdminControllerApi {
   public ResponseEntity<Group> findGroupById(String id) {
     Group group = GroupRepositoryMock.getGroupById(id);
     if (group == null) {
-      throw new NotFoundException();
+      return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok(group);
   }
@@ -56,15 +55,15 @@ public class GroupAdminControllerMock implements GroupAdminControllerApi {
   }
 
   @Override
-  public ResponseEntity<List<Group>> findGroupsByIds(@Valid List<String> ids) {
+  public ResponseEntity<List<Group>> findGroupsByIds(List<String> ids) {
     return ResponseEntity.ok(GroupRepositoryMock.getGroupsByIds(ids));
   }
 
   @Override
-  public ResponseEntity<Group> modifyGroup(String id, @Valid Group group) {
+  public ResponseEntity<Group> modifyGroup(String id, Group group) {
     Group newGroup = GroupRepositoryMock.updateGroup(id, group);
     if (newGroup == null) {
-      throw new NotFoundException();
+      return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok(newGroup);
   }
