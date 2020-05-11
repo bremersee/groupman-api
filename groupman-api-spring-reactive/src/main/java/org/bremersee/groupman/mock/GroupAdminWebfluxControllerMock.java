@@ -28,7 +28,6 @@ import reactor.core.publisher.Mono;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings("unused")
 public class GroupAdminWebfluxControllerMock implements GroupAdminWebfluxControllerApi {
 
   @Override

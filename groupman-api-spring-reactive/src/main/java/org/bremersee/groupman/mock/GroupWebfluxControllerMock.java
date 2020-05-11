@@ -32,7 +32,6 @@ import reactor.core.publisher.Mono;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class GroupWebfluxControllerMock implements GroupWebfluxControllerApi {
 
   private final Supplier<String> userNameSupplier;

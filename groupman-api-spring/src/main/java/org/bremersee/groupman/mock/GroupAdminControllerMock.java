@@ -26,7 +26,6 @@ import org.springframework.http.ResponseEntity;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings("unused")
 public class GroupAdminControllerMock implements GroupAdminControllerApi {
 
   @Override

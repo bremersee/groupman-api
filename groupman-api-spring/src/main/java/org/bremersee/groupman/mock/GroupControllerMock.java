@@ -32,7 +32,6 @@ import org.springframework.http.ResponseEntity;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class GroupControllerMock implements GroupControllerApi {
 
   private final Supplier<String> userNameSupplier;
