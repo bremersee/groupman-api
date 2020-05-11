@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ package org.bremersee.groupman.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "A group.")
+@Schema(description = "The group.")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode
@@ -81,16 +81,16 @@ public class Group implements Serializable {
   /**
    * Instantiates a new group.
    *
-   * @param id          the id
-   * @param version     the version
-   * @param createdBy   the created by
-   * @param createdAt   the created at
-   * @param modifiedAt  the modified at
-   * @param source      the source
-   * @param name        the name
+   * @param id the id
+   * @param version the version
+   * @param createdBy the created by
+   * @param createdAt the created at
+   * @param modifiedAt the modified at
+   * @param source the source
+   * @param name the name
    * @param description the description
-   * @param members     the members
-   * @param owners      the owners
+   * @param members the members
+   * @param owners the owners
    */
   @Builder(toBuilder = true)
   public Group(String id, Long version, String createdBy, OffsetDateTime createdAt,
@@ -113,7 +113,10 @@ public class Group implements Serializable {
    *
    * @return the id
    */
-  @ApiModelProperty(value = "The id of the group.")
+  @Schema(
+      description = "Unique identifier of the group.",
+      accessMode = AccessMode.READ_ONLY,
+      maxLength = 255)
   @Size(max = 255)
   public String getId() {
     return id;
@@ -133,7 +136,7 @@ public class Group implements Serializable {
    *
    * @return the version
    */
-  @ApiModelProperty(value = "The database version number.")
+  @Schema(description = "The database version number.", accessMode = AccessMode.READ_ONLY)
   public Long getVersion() {
     return version;
   }
@@ -152,7 +155,7 @@ public class Group implements Serializable {
    *
    * @return the created by
    */
-  @ApiModelProperty(value = "The user who created the group.")
+  @Schema(description = "The user who created the group.", maxLength = 255)
   @Size(max = 255)
   public String getCreatedBy() {
     return createdBy;
@@ -172,7 +175,7 @@ public class Group implements Serializable {
    *
    * @return the created at
    */
-  @ApiModelProperty(value = "The creation time.")
+  @Schema(description = "The creation time.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
@@ -191,7 +194,7 @@ public class Group implements Serializable {
    *
    * @return the modified at
    */
-  @ApiModelProperty(value = "The last modification time.")
+  @Schema(description = "The last modification time.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getModifiedAt() {
     return modifiedAt;
   }
@@ -210,7 +213,7 @@ public class Group implements Serializable {
    *
    * @return the source
    */
-  @ApiModelProperty(value = "The source.")
+  @Schema(description = "The source.", accessMode = AccessMode.READ_ONLY)
   public Source getSource() {
     return source;
   }
@@ -229,7 +232,11 @@ public class Group implements Serializable {
    *
    * @return the name
    */
-  @ApiModelProperty(required = true, value = "The name of the group.")
+  @Schema(
+      description = "The name of the group.",
+      required = true,
+      minLength = 3,
+      maxLength = 75)
   @NotNull
   @Size(min = 3, max = 75)
   public String getName() {
@@ -250,7 +257,7 @@ public class Group implements Serializable {
    *
    * @return the description
    */
-  @ApiModelProperty(value = "The description of the group.")
+  @Schema(description = "The description of the group.", maxLength = 255)
   @Size(max = 255)
   public String getDescription() {
     return description;
@@ -270,7 +277,7 @@ public class Group implements Serializable {
    *
    * @return the members
    */
-  @ApiModelProperty(value = "The members of the group.")
+  @Schema(description = "The members of the group.")
   public List<String> getMembers() {
     if (members == null) {
       members = new ArrayList<>();
@@ -292,7 +299,7 @@ public class Group implements Serializable {
    *
    * @return the owners
    */
-  @ApiModelProperty(value = "The owners of the group.")
+  @Schema(description = "The owners of the group.")
   public List<String> getOwners() {
     if (owners == null) {
       owners = new ArrayList<>();
