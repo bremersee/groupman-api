@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,14 @@
 
 package org.bremersee.groupman.api;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.groupman.model.Group;
@@ -37,7 +40,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author Christian Bremer
  */
-@Api(value = "GroupAdminController")
+@Tag(name = "group-admin-controller", description = "The group admin API.")
 @Validated
 public interface GroupAdminControllerApi {
 
@@ -46,15 +49,20 @@ public interface GroupAdminControllerApi {
    *
    * @return the groups
    */
-  @ApiOperation(
-      value = "Find all groups.",
-      nickname = "findGroups",
-      response = Group.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Find all groups.",
+      operationId = "findGroups",
       tags = {"group-admin-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List"),
-      @ApiResponse(code = 403, message = "Forbidden")
+      @ApiResponse(
+          responseCode = "200",
+          description = "The groups.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = Group.class)))),
+      @ApiResponse(
+          responseCode = "403",
+          description = "Forbidden")
   })
   @RequestMapping(
       value = "/api/admin/groups",
@@ -69,18 +77,32 @@ public interface GroupAdminControllerApi {
    * @param group the group
    * @return the response entity
    */
-  @ApiOperation(
-      value = "Add a new group.",
-      nickname = "addGroup",
-      response = Group.class,
+  @Operation(
+      summary = "Add a new group.",
+      operationId = "addGroup",
       tags = {"group-admin-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 400, message = "Bad Request",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 403, message = "Forbidden"),
-      @ApiResponse(code = 409, message = "Group already exists",
-          response = org.bremersee.exception.model.RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The added group.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Group.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad Request",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class))),
+      @ApiResponse(
+          responseCode = "403",
+          description = "Forbidden"),
+      @ApiResponse(
+          responseCode = "409",
+          description = "Group already exists",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/admin/groups",
@@ -88,7 +110,7 @@ public interface GroupAdminControllerApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   ResponseEntity<Group> addGroup(
-      @ApiParam(value = "The new group.", required = true) @Valid @RequestBody Group group);
+      @Parameter(description = "The new group.", required = true) @Valid @RequestBody Group group);
 
 
   /**
@@ -97,46 +119,68 @@ public interface GroupAdminControllerApi {
    * @param id the id
    * @return the response entity
    */
-  @ApiOperation(
-      value = "Find a group.",
-      nickname = "findGroupById",
-      response = Group.class,
+  @Operation(
+      summary = "Find a group.",
+      operationId = "findGroupById",
       tags = {"group-admin-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 404, message = "Not Found",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 403, message = "Forbidden")
+      @ApiResponse(
+          responseCode = "200",
+          description = "The group.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Group.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not Found",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class))),
+      @ApiResponse(
+          responseCode = "403",
+          description = "Forbidden")
   })
   @RequestMapping(
       value = "/api/admin/groups/{id}",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<Group> findGroupById(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id);
+      @Parameter(description = "The group ID.", required = true) @PathVariable("id") String id);
 
 
   /**
    * Modify group.
    *
-   * @param id    the id
+   * @param id the id
    * @param group the group
    * @return the response entity
    */
-  @ApiOperation(
-      value = "Modify group.",
-      nickname = "modifyGroup",
-      response = Group.class,
+  @Operation(
+      summary = "Modify group.",
+      operationId = "modifyGroup",
       tags = {"group-admin-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 400, message = "Bad Request",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 403, message = "Forbidden"),
-      @ApiResponse(code = 404, message = "Not Found",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 409, message = "Version is not up to date",
-          response = org.bremersee.exception.model.RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The modified group.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Group.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad Request",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class))),
+      @ApiResponse(
+          responseCode = "403",
+          description = "Forbidden"),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not Found",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/admin/groups/{id}",
@@ -144,8 +188,8 @@ public interface GroupAdminControllerApi {
       consumes = {"application/json"},
       method = RequestMethod.PUT)
   ResponseEntity<Group> modifyGroup(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id,
-      @ApiParam(value = "The modified group.", required = true) @Valid @RequestBody Group group);
+      @Parameter(description = "The group ID.", required = true) @PathVariable("id") String id,
+      @Parameter(description = "The group.", required = true) @Valid @RequestBody Group group);
 
 
   /**
@@ -154,20 +198,23 @@ public interface GroupAdminControllerApi {
    * @param id the id
    * @return the response entity
    */
-  @ApiOperation(
-      value = "Delete group.",
-      nickname = "removeGroup",
-      response = Group.class,
+  @Operation(
+      summary = "Remove a group.",
+      operationId = "removeGroup",
       tags = {"group-admin-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 403, message = "Forbidden")
+      @ApiResponse(
+          responseCode = "200",
+          description = "OK"),
+      @ApiResponse(
+          responseCode = "403",
+          description = "Forbidden")
   })
   @RequestMapping(
       value = "/api/admin/groups/{id}",
       method = RequestMethod.DELETE)
   ResponseEntity<Group> removeGroup(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id);
+      @Parameter(description = "The group ID.", required = true) @PathVariable("id") String id);
 
 
   /**
@@ -176,22 +223,28 @@ public interface GroupAdminControllerApi {
    * @param id the list of ids
    * @return the response entity
    */
-  @ApiOperation(
-      value = "Find groups by id.",
-      nickname = "findGroupsByIds",
-      response = Group.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Find groups by id.",
+      operationId = "findGroupsByIds",
       tags = {"group-admin-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List"),
-      @ApiResponse(code = 403, message = "Forbidden")
+      @ApiResponse(
+          responseCode = "200",
+          description = "The groups.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = Group.class)))),
+      @ApiResponse(
+          responseCode = "403",
+          description = "Forbidden")
   })
   @RequestMapping(
       value = "/api/admin/groups/f",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<List<Group>> findGroupsByIds(
-      @ApiParam(value = "Group IDs") @RequestParam(value = "id", required = false) List<String> id);
+      @Parameter(description = "Group IDs")
+      @RequestParam(value = "id", required = false) List<String> id);
 
 
 }

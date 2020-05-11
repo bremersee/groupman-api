@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package org.bremersee.groupman.mock;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import org.bremersee.groupman.api.GroupControllerApi;
@@ -49,11 +50,9 @@ public class GroupControllerMock implements GroupControllerApi {
    * @param userNameSupplier the user name supplier
    */
   public GroupControllerMock(Supplier<String> userNameSupplier) {
-    if (userNameSupplier != null) {
-      this.userNameSupplier = userNameSupplier;
-    } else {
-      this.userNameSupplier = () -> GroupRepositoryMock.GROUP_0_OWNER;
-    }
+    this.userNameSupplier = Objects.requireNonNullElse(
+        userNameSupplier,
+        () -> GroupRepositoryMock.GROUP_0_OWNER);
   }
 
   @Override

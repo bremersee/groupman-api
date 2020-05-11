@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,14 @@
 
 package org.bremersee.groupman.api;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
@@ -40,8 +43,7 @@ import reactor.core.publisher.Mono;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings("unused")
-@Api(value = "GroupController")
+@Tag(name = "group-controller", description = "The group API.")
 @Validated
 public interface GroupWebfluxControllerApi {
 
@@ -51,17 +53,29 @@ public interface GroupWebfluxControllerApi {
    * @param group the group
    * @return the group
    */
-  @ApiOperation(
-      value = "Create a new group.",
-      nickname = "createGroup",
-      response = Group.class,
+  @Operation(
+      summary = "Create a new group.",
+      operationId = "createGroup",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 400, message = "Bad Request",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 409, message = "Group already exists",
-          response = org.bremersee.exception.model.RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The created group.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Group.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad Request",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class))),
+      @ApiResponse(
+          responseCode = "409",
+          description = "Group already exists",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/groups",
@@ -69,7 +83,7 @@ public interface GroupWebfluxControllerApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   Mono<Group> createGroup(
-      @ApiParam(value = "The new group.", required = true) @Valid @RequestBody Group group);
+      @Parameter(description = "The new group.", required = true) @Valid @RequestBody Group group);
 
   /**
    * Gets group by id.
@@ -77,22 +91,30 @@ public interface GroupWebfluxControllerApi {
    * @param id the group id
    * @return the group by id
    */
-  @ApiOperation(
-      value = "Get a group.",
-      nickname = "getGroupById",
-      response = Group.class,
+  @Operation(
+      summary = "Get a group.",
+      operationId = "getGroupById",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 404, message = "Not Found",
-          response = org.bremersee.exception.model.RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The group.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Group.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not Found",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/groups/{id}",
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<Group> getGroupById(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable(value = "id") String id);
+      @Parameter(description = "The group ID.", required = true) @PathVariable("id") String id);
 
   /**
    * Update group.
@@ -101,21 +123,38 @@ public interface GroupWebfluxControllerApi {
    * @param group the group
    * @return the group
    */
-  @ApiOperation(
-      value = "Update group.",
-      nickname = "updateGroup",
-      response = Group.class,
+  @Operation(
+      summary = "Update group.",
+      operationId = "updateGroup",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 400, message = "Bad Request",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 403, message = "Forbidden",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 404, message = "Not Found",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 409, message = "Version is not up to date",
-          response = org.bremersee.exception.model.RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The updated group.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Group.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad Request",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class))),
+      @ApiResponse(
+          responseCode = "403",
+          description = "Forbidden"),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not Found",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class))),
+      @ApiResponse(
+          responseCode = "409",
+          description = "Version is not up to date",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/groups/{id}",
@@ -123,8 +162,8 @@ public interface GroupWebfluxControllerApi {
       consumes = {"application/json"},
       method = RequestMethod.PUT)
   Mono<Group> updateGroup(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id,
-      @ApiParam(value = "The update data.", required = true) @Valid @RequestBody Group group);
+      @Parameter(description = "The group ID.", required = true) @PathVariable("id") String id,
+      @Parameter(description = "The group.", required = true) @Valid @RequestBody Group group);
 
   /**
    * Delete group.
@@ -132,23 +171,29 @@ public interface GroupWebfluxControllerApi {
    * @param id the group id
    * @return the mono
    */
-  @ApiOperation(
-      value = "Delete group.",
-      nickname = "deleteGroup",
-      response = Group.class,
+  @Operation(
+      summary = "Delete a group.",
+      operationId = "deleteGroup",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class),
-      @ApiResponse(code = 403, message = "Forbidden",
-          response = org.bremersee.exception.model.RestApiException.class),
-      @ApiResponse(code = 404, message = "Not found",
-          response = org.bremersee.exception.model.RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "OK"),
+      @ApiResponse(
+          responseCode = "403",
+          description = "Forbidden"),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not Found",
+          content = @Content(
+              schema = @Schema(
+                  implementation = org.bremersee.exception.model.RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/groups/{id}",
       method = RequestMethod.DELETE)
   Mono<Void> deleteGroup(
-      @ApiParam(value = "The group ID.", required = true) @PathVariable("id") String id);
+      @Parameter(description = "The group ID.", required = true) @PathVariable("id") String id);
 
   /**
    * Gets groups by ids.
@@ -156,35 +201,42 @@ public interface GroupWebfluxControllerApi {
    * @param id the list of ids
    * @return the groups by ids
    */
-  @ApiOperation(
-      value = "Get groups by id.",
-      nickname = "getGroupsByIds",
-      response = Group.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Get groups by id.",
+      operationId = "getGroupsByIds",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List")
+      @ApiResponse(
+          responseCode = "200",
+          description = "The groups.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = Group.class))))
   })
   @RequestMapping(
       value = "/api/groups/f",
       produces = {"application/json"},
       method = RequestMethod.GET)
   Flux<Group> getGroupsByIds(
-      @ApiParam(value = "Group IDs") @RequestParam(value = "id", required = false) List<String> id);
+      @Parameter(description = "Group IDs")
+      @RequestParam(value = "id", required = false) List<String> id);
 
   /**
    * Gets editable groups.
    *
    * @return the editable groups
    */
-  @ApiOperation(
-      value = "Get editable groups.",
-      nickname = "getEditableGroups",
-      response = Group.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Get editable groups.",
+      operationId = "getEditableGroups",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List")
+      @ApiResponse(
+          responseCode = "200",
+          description = "The groups.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = Group.class))))
   })
   @RequestMapping(
       value = "/api/groups/f/editable",
@@ -197,14 +249,17 @@ public interface GroupWebfluxControllerApi {
    *
    * @return the usable groups
    */
-  @ApiOperation(
-      value = "Get usable groups.",
-      nickname = "getUsableGroups",
-      response = Group.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Get usable groups.",
+      operationId = "getUsableGroups",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List")
+      @ApiResponse(
+          responseCode = "200",
+          description = "The groups.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = Group.class))))
   })
   @RequestMapping(
       value = "/api/groups/f/usable",
@@ -217,14 +272,17 @@ public interface GroupWebfluxControllerApi {
    *
    * @return the membership
    */
-  @ApiOperation(
-      value = "Get membership.",
-      nickname = "getMembership",
-      response = Group.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Get membership.",
+      operationId = "getMembership",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Group.class, responseContainer = "List")
+      @ApiResponse(
+          responseCode = "200",
+          description = "The groups.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = Group.class))))
   })
   @RequestMapping(
       value = "/api/groups/f/membership",
@@ -237,13 +295,17 @@ public interface GroupWebfluxControllerApi {
    *
    * @return the membership ids
    */
-  @ApiOperation(
-      value = "Get membership IDs.",
-      nickname = "getMembershipIds",
-      response = String.class,
+  @Operation(
+      summary = "Get membership IDs.",
+      operationId = "getMembershipIds",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = String.class, responseContainer = "List")
+      @ApiResponse(
+          responseCode = "200",
+          description = "The group IDs.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = String.class))))
   })
   @RequestMapping(
       value = "/api/groups/f/membership-ids",
@@ -256,13 +318,17 @@ public interface GroupWebfluxControllerApi {
    *
    * @return the status
    */
-  @ApiOperation(
-      value = "Get status of the current user.",
-      nickname = "getStatus",
-      response = Status.class,
+  @Operation(
+      summary = "Get status of the current user.",
+      operationId = "getStatus",
       tags = {"group-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "OK", response = Status.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The user status.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Status.class)))
   })
   @RequestMapping(
       value = "/api/groups/f/status",
