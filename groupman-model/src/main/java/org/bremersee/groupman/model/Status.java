@@ -18,9 +18,8 @@ package org.bremersee.groupman.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serializable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -34,7 +33,7 @@ import lombok.ToString;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "Status of an user.")
+@Schema(description = "Status of an user.")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
@@ -45,23 +44,23 @@ public class Status implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @ApiModelProperty(
+  @Schema(
+      description = "The maximum number of owned groups.",
       required = true,
-      value = "The maximum number of owned groups.",
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty("maxOwnedGroups")
   private long maxOwnedGroups = -1;
 
-  @ApiModelProperty(
+  @Schema(
+      description = "The current size of owned groups.",
       required = true,
-      value = "The current size of owned groups.",
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty("ownedGroupSize")
   private long ownedGroupSize = 0;
 
-  @ApiModelProperty(
+  @Schema(
+      description = "The current membership size.",
       required = true,
-      value = "The current membership size.",
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty("membershipSize")
   private long membershipSize = 0;
