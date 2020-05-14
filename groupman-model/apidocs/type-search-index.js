@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.bremersee.groupman.model","l":"Group"},{"p":"org.bremersee.groupman.model","l":"GroupIdList"},{"p":"org.bremersee.groupman.mock","l":"GroupRepositoryMock"},{"p":"org.bremersee.groupman.model","l":"Source"},{"p":"org.bremersee.groupman.model","l":"Status"}]

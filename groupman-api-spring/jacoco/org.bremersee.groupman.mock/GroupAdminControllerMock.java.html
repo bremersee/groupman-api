@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GroupAdminControllerMock.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">groupman-api-spring</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.groupman.mock</a> &gt; <span class="el_source">GroupAdminControllerMock.java</span></div><h1>GroupAdminControllerMock.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -26,46 +26,45 @@ import org.springframework.http.ResponseEntity;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings(&quot;unused&quot;)
-<span class="fc" id="L30">public class GroupAdminControllerMock implements GroupAdminControllerApi {</span>
+<span class="fc" id="L29">public class GroupAdminControllerMock implements GroupAdminControllerApi {</span>
 
   @Override
   public ResponseEntity&lt;Group&gt; addGroup(Group group) {
-<span class="fc" id="L34">    return ResponseEntity.ok(GroupRepositoryMock.createGroup(group));</span>
+<span class="fc" id="L33">    return ResponseEntity.ok(GroupRepositoryMock.createGroup(group));</span>
   }
 
   @Override
   public ResponseEntity&lt;Group&gt; removeGroup(String id) {
-<span class="fc" id="L39">    GroupRepositoryMock.deleteGroup(id);</span>
-<span class="fc" id="L40">    return ResponseEntity.ok().build();</span>
+<span class="fc" id="L38">    GroupRepositoryMock.deleteGroup(id);</span>
+<span class="fc" id="L39">    return ResponseEntity.ok().build();</span>
   }
 
   @Override
   public ResponseEntity&lt;Group&gt; findGroupById(String id) {
-<span class="fc" id="L45">    Group group = GroupRepositoryMock.getGroupById(id);</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">    if (group == null) {</span>
-<span class="fc" id="L47">      return ResponseEntity.notFound().build();</span>
+<span class="fc" id="L44">    Group group = GroupRepositoryMock.getGroupById(id);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">    if (group == null) {</span>
+<span class="fc" id="L46">      return ResponseEntity.notFound().build();</span>
     }
-<span class="fc" id="L49">    return ResponseEntity.ok(group);</span>
+<span class="fc" id="L48">    return ResponseEntity.ok(group);</span>
   }
 
   @Override
   public ResponseEntity&lt;List&lt;Group&gt;&gt; findGroups() {
-<span class="fc" id="L54">    return ResponseEntity.ok(GroupRepositoryMock.getGroups());</span>
+<span class="fc" id="L53">    return ResponseEntity.ok(GroupRepositoryMock.getGroups());</span>
   }
 
   @Override
   public ResponseEntity&lt;List&lt;Group&gt;&gt; findGroupsByIds(List&lt;String&gt; ids) {
-<span class="fc" id="L59">    return ResponseEntity.ok(GroupRepositoryMock.getGroupsByIds(ids));</span>
+<span class="fc" id="L58">    return ResponseEntity.ok(GroupRepositoryMock.getGroupsByIds(ids));</span>
   }
 
   @Override
   public ResponseEntity&lt;Group&gt; modifyGroup(String id, Group group) {
-<span class="fc" id="L64">    Group newGroup = GroupRepositoryMock.updateGroup(id, group);</span>
-<span class="fc bfc" id="L65" title="All 2 branches covered.">    if (newGroup == null) {</span>
-<span class="fc" id="L66">      return ResponseEntity.notFound().build();</span>
+<span class="fc" id="L63">    Group newGroup = GroupRepositoryMock.updateGroup(id, group);</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">    if (newGroup == null) {</span>
+<span class="fc" id="L65">      return ResponseEntity.notFound().build();</span>
     }
-<span class="fc" id="L68">    return ResponseEntity.ok(newGroup);</span>
+<span class="fc" id="L67">    return ResponseEntity.ok(newGroup);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

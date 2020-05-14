@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.bremersee.groupman.api","l":"GroupAdminWebfluxControllerApi"},{"p":"org.bremersee.groupman.mock","l":"GroupAdminWebfluxControllerMock"},{"p":"org.bremersee.groupman.api","l":"GroupWebfluxControllerApi"},{"p":"org.bremersee.groupman.mock","l":"GroupWebfluxControllerMock"}]

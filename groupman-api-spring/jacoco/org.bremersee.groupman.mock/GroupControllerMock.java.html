@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GroupControllerMock.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">groupman-api-spring</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.groupman.mock</a> &gt; <span class="el_source">GroupControllerMock.java</span></div><h1>GroupControllerMock.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package org.bremersee.groupman.mock;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import org.bremersee.groupman.api.GroupControllerApi;
@@ -31,7 +32,6 @@ import org.springframework.http.ResponseEntity;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings({&quot;unused&quot;, &quot;WeakerAccess&quot;})
 public class GroupControllerMock implements GroupControllerApi {
 
   private final Supplier&lt;String&gt; userNameSupplier;
@@ -49,76 +49,74 @@ public class GroupControllerMock implements GroupControllerApi {
    * @param userNameSupplier the user name supplier
    */
 <span class="fc" id="L51">  public GroupControllerMock(Supplier&lt;String&gt; userNameSupplier) {</span>
-<span class="fc bfc" id="L52" title="All 2 branches covered.">    if (userNameSupplier != null) {</span>
-<span class="fc" id="L53">      this.userNameSupplier = userNameSupplier;</span>
-    } else {
-<span class="fc" id="L55">      this.userNameSupplier = () -&gt; GroupRepositoryMock.GROUP_0_OWNER;</span>
-    }
-<span class="fc" id="L57">  }</span>
+<span class="fc" id="L52">    this.userNameSupplier = Objects.requireNonNullElse(</span>
+        userNameSupplier,
+<span class="fc" id="L54">        () -&gt; GroupRepositoryMock.GROUP_0_OWNER);</span>
+<span class="fc" id="L55">  }</span>
 
   @Override
   public ResponseEntity&lt;Group&gt; createGroup(Group group) {
-<span class="fc" id="L61">    return ResponseEntity.ok(GroupRepositoryMock.createGroup(group));</span>
+<span class="fc" id="L59">    return ResponseEntity.ok(GroupRepositoryMock.createGroup(group));</span>
   }
 
   @Override
   public ResponseEntity&lt;Group&gt; deleteGroup(String id) {
-<span class="fc" id="L66">    GroupRepositoryMock.deleteGroup(id);</span>
-<span class="fc" id="L67">    return ResponseEntity.ok().build();</span>
+<span class="fc" id="L64">    GroupRepositoryMock.deleteGroup(id);</span>
+<span class="fc" id="L65">    return ResponseEntity.ok().build();</span>
   }
 
   @Override
   public ResponseEntity&lt;List&lt;Group&gt;&gt; getEditableGroups() {
-<span class="fc" id="L72">    return ResponseEntity.ok(GroupRepositoryMock</span>
-<span class="fc" id="L73">        .getEditableGroups(userNameSupplier.get()));</span>
+<span class="fc" id="L70">    return ResponseEntity.ok(GroupRepositoryMock</span>
+<span class="fc" id="L71">        .getEditableGroups(userNameSupplier.get()));</span>
   }
 
   @Override
   public ResponseEntity&lt;Group&gt; getGroupById(String id) {
-<span class="fc" id="L78">    Group group = GroupRepositoryMock.getGroupById(id);</span>
-<span class="fc bfc" id="L79" title="All 2 branches covered.">    if (group == null) {</span>
-<span class="fc" id="L80">      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();</span>
+<span class="fc" id="L76">    Group group = GroupRepositoryMock.getGroupById(id);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (group == null) {</span>
+<span class="fc" id="L78">      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();</span>
     }
-<span class="fc" id="L82">    return ResponseEntity.ok(group);</span>
+<span class="fc" id="L80">    return ResponseEntity.ok(group);</span>
   }
 
   @Override
   public ResponseEntity&lt;List&lt;Group&gt;&gt; getGroupsByIds(List&lt;String&gt; ids) {
-<span class="fc" id="L87">    return ResponseEntity.ok(GroupRepositoryMock.getGroupsByIds(ids));</span>
+<span class="fc" id="L85">    return ResponseEntity.ok(GroupRepositoryMock.getGroupsByIds(ids));</span>
   }
 
   @Override
   public ResponseEntity&lt;List&lt;Group&gt;&gt; getMembership() {
-<span class="fc" id="L92">    return ResponseEntity.ok(GroupRepositoryMock</span>
-<span class="fc" id="L93">        .getMembership(userNameSupplier.get()));</span>
+<span class="fc" id="L90">    return ResponseEntity.ok(GroupRepositoryMock</span>
+<span class="fc" id="L91">        .getMembership(userNameSupplier.get()));</span>
   }
 
   @Override
   public ResponseEntity&lt;GroupIdList&gt; getMembershipIds() {
-<span class="fc" id="L98">    Set&lt;String&gt; ids = GroupRepositoryMock.getMembershipIds(userNameSupplier.get());</span>
-<span class="fc" id="L99">    GroupIdList list = new GroupIdList();</span>
-<span class="fc" id="L100">    list.addAll(ids);</span>
-<span class="fc" id="L101">    return ResponseEntity.ok(list);</span>
+<span class="fc" id="L96">    Set&lt;String&gt; ids = GroupRepositoryMock.getMembershipIds(userNameSupplier.get());</span>
+<span class="fc" id="L97">    GroupIdList list = new GroupIdList();</span>
+<span class="fc" id="L98">    list.addAll(ids);</span>
+<span class="fc" id="L99">    return ResponseEntity.ok(list);</span>
   }
 
   @Override
   public ResponseEntity&lt;Status&gt; getStatus() {
-<span class="fc" id="L106">    return ResponseEntity.ok(GroupRepositoryMock.getStatus(userNameSupplier.get()));</span>
+<span class="fc" id="L104">    return ResponseEntity.ok(GroupRepositoryMock.getStatus(userNameSupplier.get()));</span>
   }
 
   @Override
   public ResponseEntity&lt;List&lt;Group&gt;&gt; getUsableGroups() {
-<span class="fc" id="L111">    return ResponseEntity.ok(GroupRepositoryMock</span>
-<span class="fc" id="L112">        .getUsableGroups(userNameSupplier.get()));</span>
+<span class="fc" id="L109">    return ResponseEntity.ok(GroupRepositoryMock</span>
+<span class="fc" id="L110">        .getUsableGroups(userNameSupplier.get()));</span>
   }
 
   @Override
   public ResponseEntity&lt;Group&gt; updateGroup(String id, Group group) {
-<span class="fc" id="L117">    Group newGroup = GroupRepositoryMock.updateGroup(id, group);</span>
-<span class="fc bfc" id="L118" title="All 2 branches covered.">    if (newGroup == null) {</span>
-<span class="fc" id="L119">      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();</span>
+<span class="fc" id="L115">    Group newGroup = GroupRepositoryMock.updateGroup(id, group);</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">    if (newGroup == null) {</span>
+<span class="fc" id="L117">      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();</span>
     }
-<span class="fc" id="L121">    return ResponseEntity.ok(newGroup);</span>
+<span class="fc" id="L119">    return ResponseEntity.ok(newGroup);</span>
   }
 
 }

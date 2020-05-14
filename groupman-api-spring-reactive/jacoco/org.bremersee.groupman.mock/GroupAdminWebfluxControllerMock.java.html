@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GroupAdminWebfluxControllerMock.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">groupman-api-spring-reactive</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.groupman.mock</a> &gt; <span class="el_source">GroupAdminWebfluxControllerMock.java</span></div><h1>GroupAdminWebfluxControllerMock.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -28,46 +28,45 @@ import reactor.core.publisher.Mono;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings(&quot;unused&quot;)
-<span class="fc" id="L32">public class GroupAdminWebfluxControllerMock implements GroupAdminWebfluxControllerApi {</span>
+<span class="fc" id="L31">public class GroupAdminWebfluxControllerMock implements GroupAdminWebfluxControllerApi {</span>
 
   @Override
   public Flux&lt;Group&gt; findGroups() {
-<span class="fc" id="L36">    return Flux.just(GroupRepositoryMock.getGroups().toArray(new Group[0]));</span>
+<span class="fc" id="L35">    return Flux.just(GroupRepositoryMock.getGroups().toArray(new Group[0]));</span>
   }
 
   @Override
   public Mono&lt;Group&gt; addGroup(Group group) {
-<span class="fc" id="L41">    return Mono.justOrEmpty(GroupRepositoryMock.createGroup(group));</span>
+<span class="fc" id="L40">    return Mono.justOrEmpty(GroupRepositoryMock.createGroup(group));</span>
   }
 
   @Override
   public Mono&lt;Group&gt; findGroupById(String groupId) {
-<span class="fc" id="L46">    Group group = GroupRepositoryMock.getGroupById(groupId);</span>
-<span class="fc bfc" id="L47" title="All 2 branches covered.">    if (group == null) {</span>
-<span class="fc" id="L48">      return Mono.error(ServiceException.notFound(&quot;Group&quot;, groupId));</span>
+<span class="fc" id="L45">    Group group = GroupRepositoryMock.getGroupById(groupId);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">    if (group == null) {</span>
+<span class="fc" id="L47">      return Mono.error(ServiceException.notFound(&quot;Group&quot;, groupId));</span>
     }
-<span class="fc" id="L50">    return Mono.just(group);</span>
+<span class="fc" id="L49">    return Mono.just(group);</span>
   }
 
   @Override
   public Mono&lt;Group&gt; modifyGroup(String groupId, Group group) {
-<span class="fc" id="L55">    Group newGroup = GroupRepositoryMock.updateGroup(groupId, group);</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">    if (newGroup == null) {</span>
-<span class="fc" id="L57">      return Mono.error(ServiceException.notFound(&quot;Group&quot;, groupId));</span>
+<span class="fc" id="L54">    Group newGroup = GroupRepositoryMock.updateGroup(groupId, group);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">    if (newGroup == null) {</span>
+<span class="fc" id="L56">      return Mono.error(ServiceException.notFound(&quot;Group&quot;, groupId));</span>
     }
-<span class="fc" id="L59">    return Mono.just(newGroup);</span>
+<span class="fc" id="L58">    return Mono.just(newGroup);</span>
   }
 
   @Override
   public Mono&lt;Void&gt; removeGroup(String groupId) {
-<span class="fc" id="L64">    GroupRepositoryMock.deleteGroup(groupId);</span>
-<span class="fc" id="L65">    return Mono.empty();</span>
+<span class="fc" id="L63">    GroupRepositoryMock.deleteGroup(groupId);</span>
+<span class="fc" id="L64">    return Mono.empty();</span>
   }
 
   @Override
   public Flux&lt;Group&gt; findGroupsByIds(List&lt;String&gt; ids) {
-<span class="fc" id="L70">    return Flux.just(GroupRepositoryMock.getGroupsByIds(ids).toArray(new Group[0]));</span>
+<span class="fc" id="L69">    return Flux.just(GroupRepositoryMock.getGroupsByIds(ids).toArray(new Group[0]));</span>
   }
 
 }
