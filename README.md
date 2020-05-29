@@ -1,6 +1,6 @@
 # Groupman API
 
-[![codecov](https://codecov.io/gh/bremersee/groupman-api/branch/master/graph/badge.svg)](https://codecov.io/gh/bremersee/groupman-api)
+[![codecov](https://codecov.io/gh/bremersee/groupman-api/branch/develop/graph/badge.svg)](https://codecov.io/gh/bremersee/groupman-api)
 
 Group service API
 
