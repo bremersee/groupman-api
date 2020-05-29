@@ -8,4 +8,4 @@ Group service API
 
 - [Release](https://bremersee.github.io/groupman-api/index.html)
 
-- [Snapshot](https://nexus.bremersee.org/repository/maven-sites/groupman-api/2.0.1-SNAPSHOT/index.html)
+- [Snapshot](https://nexus.bremersee.org/repository/maven-sites/groupman-api/2.0.3-SNAPSHOT/index.html)
