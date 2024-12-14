@@ -90,4 +90,5 @@ class StatusTest {
 
     assertTrue(model.toString().contains(String.valueOf(value)));
   }
+
 }
