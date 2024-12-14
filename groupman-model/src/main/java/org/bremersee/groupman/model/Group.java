@@ -20,17 +20,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import jakarta.validation.Valid;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * The group.
@@ -38,14 +40,14 @@ import org.springframework.validation.annotation.Validated;
  * @author Christian Bremer
  */
 @Schema(description = "The group.")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@SuppressWarnings("unused")
+@Valid
 public class Group implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @JsonProperty("id")
@@ -234,7 +236,7 @@ public class Group implements Serializable {
    */
   @Schema(
       description = "The name of the group.",
-      required = true,
+      requiredMode = RequiredMode.REQUIRED,
       minLength = 3,
       maxLength = 75)
   @NotNull

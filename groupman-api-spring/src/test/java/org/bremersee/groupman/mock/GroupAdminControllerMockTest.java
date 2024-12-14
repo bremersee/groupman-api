@@ -85,7 +85,7 @@ class GroupAdminControllerMockTest {
   void findGroupByIdAndExpectError() {
     ResponseEntity<Group> response = mock.findGroupById(UUID.randomUUID().toString());
     assertNotNull(response);
-    assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCodeValue());
+    assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode().value());
   }
 
   /**
@@ -135,7 +135,7 @@ class GroupAdminControllerMockTest {
     ResponseEntity<Group> response = mock.modifyGroup(
         UUID.randomUUID().toString(), Group.builder().build());
     assertNotNull(response);
-    assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCodeValue());
+    assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode().value());
   }
 
 }

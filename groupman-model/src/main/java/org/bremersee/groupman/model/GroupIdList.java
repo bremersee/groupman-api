@@ -17,6 +17,7 @@
 package org.bremersee.groupman.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,9 +34,9 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class GroupIdList extends ArrayList<String> implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**

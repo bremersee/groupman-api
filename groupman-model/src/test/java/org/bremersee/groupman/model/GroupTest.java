@@ -46,8 +46,9 @@ class GroupTest {
     model = Group.builder().id(value).build();
     assertEquals(value, model.getId());
 
-    assertNotEquals(model, null);
-    assertNotEquals(model, new Object());
+    assertNotEquals(null, model);
+    assertNotEquals(new Object(), model);
+    //noinspection EqualsWithItself
     assertEquals(model, model);
     assertEquals(model, model.toBuilder().id(value).build());
 

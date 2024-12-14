@@ -16,15 +16,15 @@
 
 package org.bremersee.groupman.api;
 
-import static org.bremersee.test.web.RestApiTesterExclusion.exclusionBuilder;
-import static org.bremersee.test.web.RestApiTesterPath.PathType.ANNOTATION;
-import static org.bremersee.test.web.RestApiTesterPath.PathType.ATTRIBUTE;
-import static org.bremersee.test.web.RestApiTesterPath.PathType.CLASS;
-import static org.bremersee.test.web.RestApiTesterPath.PathType.METHOD;
-import static org.bremersee.test.web.RestApiTesterPath.pathBuilder;
+import static org.bremersee.spring.test.api.comparator.RestApiComparatorExclusion.exclusionBuilder;
+import static org.bremersee.spring.test.api.comparator.RestApiComparatorPath.PathType.ANNOTATION;
+import static org.bremersee.spring.test.api.comparator.RestApiComparatorPath.PathType.ATTRIBUTE;
+import static org.bremersee.spring.test.api.comparator.RestApiComparatorPath.PathType.CLASS;
+import static org.bremersee.spring.test.api.comparator.RestApiComparatorPath.PathType.METHOD;
+import static org.bremersee.spring.test.api.comparator.RestApiComparatorPath.pathBuilder;
 
-import org.bremersee.test.web.RestApiAssertionType;
-import org.bremersee.test.web.RestApiTester;
+import org.bremersee.spring.test.api.comparator.RestApiComparator;
+import org.bremersee.spring.test.api.comparator.RestApiComparatorAssertionType;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -39,7 +39,7 @@ class GroupAdminWebfluxControllerApiTest {
    */
   @Test
   void assertSameAnnotationsOnGroupAdminController() {
-    RestApiTester.assertSameApi(
+    RestApiComparator.assertSameApi(
         GroupAdminControllerApi.class,
         GroupAdminWebfluxControllerApi.class);
   }
@@ -49,7 +49,7 @@ class GroupAdminWebfluxControllerApiTest {
    */
   @Test
   void assertSameAnnotationsOnGroupController() {
-    RestApiTester.assertSameApi(
+    RestApiComparator.assertSameApi(
         GroupControllerApi.class,
         GroupWebfluxControllerApi.class,
         exclusionBuilder()
@@ -59,7 +59,7 @@ class GroupAdminWebfluxControllerApiTest {
                 .add(ANNOTATION, "ApiOperation")
                 .add(ATTRIBUTE, "response")
                 .build())
-            .type(RestApiAssertionType.SAME_ANNOTATION_ATTRIBUTE_VALUE)
+            .type(RestApiComparatorAssertionType.SAME_ANNOTATION_ATTRIBUTE_VALUE)
             .build(),
         exclusionBuilder()
             .path(pathBuilder()
@@ -70,7 +70,7 @@ class GroupAdminWebfluxControllerApiTest {
                 .add(ANNOTATION, "ApiResponse")
                 .add(ATTRIBUTE, "response")
                 .build())
-            .type(RestApiAssertionType.SAME_ANNOTATION_ATTRIBUTE_VALUE)
+            .type(RestApiComparatorAssertionType.SAME_ANNOTATION_ATTRIBUTE_VALUE)
             .build(),
         exclusionBuilder()
             .path(pathBuilder()
@@ -81,7 +81,7 @@ class GroupAdminWebfluxControllerApiTest {
                 .add(ANNOTATION, "ApiResponse")
                 .add(ATTRIBUTE, "responseContainer")
                 .build())
-            .type(RestApiAssertionType.SAME_ANNOTATION_ATTRIBUTE_VALUE)
+            .type(RestApiComparatorAssertionType.SAME_ANNOTATION_ATTRIBUTE_VALUE)
             .build()
     );
   }

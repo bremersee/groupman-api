@@ -42,8 +42,9 @@ class StatusTest {
     model = Status.builder().maxOwnedGroups(value).build();
     assertEquals(value, model.getMaxOwnedGroups());
 
-    assertNotEquals(model, null);
-    assertNotEquals(model, new Object());
+    assertNotEquals(null, model);
+    assertNotEquals(new Object(), model);
+    //noinspection EqualsWithItself
     assertEquals(model, model);
     assertEquals(model, model.toBuilder().maxOwnedGroups(value).build());
 
@@ -63,6 +64,7 @@ class StatusTest {
     model = Status.builder().ownedGroupSize(value).build();
     assertEquals(value, model.getOwnedGroupSize());
 
+    //noinspection EqualsWithItself
     assertEquals(model, model);
     assertEquals(model, model.toBuilder().ownedGroupSize(value).build());
 
@@ -82,6 +84,7 @@ class StatusTest {
     model = Status.builder().membershipSize(value).build();
     assertEquals(value, model.getMembershipSize());
 
+    //noinspection EqualsWithItself
     assertEquals(model, model);
     assertEquals(model, model.toBuilder().membershipSize(value).build());
 

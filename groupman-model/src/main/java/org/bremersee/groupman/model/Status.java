@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import java.io.Serial;
 import java.io.Serializable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -42,25 +44,26 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Status implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Schema(
       description = "The maximum number of owned groups.",
-      required = true,
+      requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty("maxOwnedGroups")
   private long maxOwnedGroups = -1;
 
   @Schema(
       description = "The current size of owned groups.",
-      required = true,
+      requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty("ownedGroupSize")
   private long ownedGroupSize = 0;
 
   @Schema(
       description = "The current membership size.",
-      required = true,
+      requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty("membershipSize")
   private long membershipSize = 0;
@@ -73,7 +76,6 @@ public class Status implements Serializable {
    * @param membershipSize the membership size
    */
   @Builder(toBuilder = true)
-  @SuppressWarnings("unused")
   public Status(long maxOwnedGroups, long ownedGroupSize, long membershipSize) {
     this.maxOwnedGroups = maxOwnedGroups;
     this.ownedGroupSize = ownedGroupSize;
