@@ -1,8 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-groupman-model,org.bremersee.groupman.model,Group.GroupBuilder,22,77,0,0,0,1,1,12,1,12
-groupman-model,org.bremersee.groupman.model,GroupIdList,9,37,2,6,0,5,3,7,1,5
-groupman-model,org.bremersee.groupman.model,Source,0,64,0,4,0,11,0,6,0,4
-groupman-model,org.bremersee.groupman.model,Group,56,526,35,55,0,60,33,40,0,28
-groupman-model,org.bremersee.groupman.model,Status.StatusBuilder,8,28,0,0,0,1,1,5,1,5
-groupman-model,org.bremersee.groupman.model,Status,56,119,4,8,0,16,5,15,1,13
+groupman-model,org.bremersee.groupman.model,GroupIdList,0,4,0,0,0,2,0,1,0,1
+groupman-model,org.bremersee.groupman.model,Group,0,149,0,4,0,56,0,23,0,21
+groupman-model,org.bremersee.groupman.model,Source,0,55,0,4,0,11,0,6,0,4
+groupman-model,org.bremersee.groupman.model,Status,0,21,0,0,0,8,0,1,0,1
 groupman-model,org.bremersee.groupman.mock,GroupRepositoryMock,3,373,6,38,1,89,7,29,1,13

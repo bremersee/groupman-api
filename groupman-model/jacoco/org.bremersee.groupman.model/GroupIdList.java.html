@@ -17,6 +17,7 @@
 package org.bremersee.groupman.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,12 +31,12 @@ import lombok.ToString;
  * @author Christian Bremer
  */
 @Schema(description = &quot;A list with group identifiers.&quot;)
-<span class="pc bpc" id="L33" title="2 of 8 branches missed.">@EqualsAndHashCode(callSuper = true)</span>
-<span class="fc" id="L34">@ToString(callSuper = true)</span>
-<span class="fc" id="L35">@NoArgsConstructor</span>
-@SuppressWarnings(&quot;unused&quot;)
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@NoArgsConstructor
 public class GroupIdList extends ArrayList&lt;String&gt; implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**
@@ -44,9 +45,9 @@ public class GroupIdList extends ArrayList&lt;String&gt; implements Serializable
    * @param ids the ids
    */
   public GroupIdList(Collection&lt;? extends String&gt; ids) {
-<span class="fc" id="L47">    super(ids);</span>
-<span class="fc" id="L48">  }</span>
+<span class="fc" id="L48">    super(ids);</span>
+<span class="fc" id="L49">  }</span>
 
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

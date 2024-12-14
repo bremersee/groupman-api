@@ -93,7 +93,7 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>    <strong class="jxr_keyword">void</strong> findGroupByIdAndExpectError() {
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      ResponseEntity&lt;Group&gt; response = mock.findGroupById(UUID.randomUUID().toString());
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      assertNotNull(response);
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCodeValue());
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode().value());
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>    }
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>    <em class="jxr_javadoccomment">/**</em>
@@ -143,12 +143,12 @@
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>     ResponseEntity&lt;Group&gt; response = mock.modifyGroup(
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         UUID.randomUUID().toString(), Group.builder().build());
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     assertNotNull(response);
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCodeValue());
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode().value());
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>   }
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> 
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2020 <a href="http://bremersee.org">bremersee.org</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2019&#x2013;2024 <a href="https://bremersee.org">bremersee.org</a>. All rights reserved.</div>
 </body>
 </html>

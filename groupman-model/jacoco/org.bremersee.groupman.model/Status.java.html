@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import java.io.Serial;
 import java.io.Serializable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -36,34 +38,35 @@ import lombok.ToString;
 @Schema(description = &quot;Status of an user.&quot;)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
-<span class="fc" id="L39">@Setter</span>
-<span class="pc bpc" id="L40" title="4 of 12 branches missed.">@EqualsAndHashCode</span>
-<span class="fc" id="L41">@ToString</span>
-<span class="fc" id="L42">@NoArgsConstructor</span>
+@Setter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
 public class Status implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
-<span class="fc" id="L47">  @Schema(</span>
+<span class="fc" id="L50">  @Schema(</span>
       description = &quot;The maximum number of owned groups.&quot;,
-      required = true,
+      requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;maxOwnedGroups&quot;)
-<span class="fc" id="L52">  private long maxOwnedGroups = -1;</span>
+  private long maxOwnedGroups = -1;
 
-<span class="fc" id="L54">  @Schema(</span>
+<span class="fc" id="L57">  @Schema(</span>
       description = &quot;The current size of owned groups.&quot;,
-      required = true,
+      requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;ownedGroupSize&quot;)
-<span class="fc" id="L59">  private long ownedGroupSize = 0;</span>
+  private long ownedGroupSize = 0;
 
-<span class="fc" id="L61">  @Schema(</span>
+<span class="fc" id="L64">  @Schema(</span>
       description = &quot;The current membership size.&quot;,
-      required = true,
+      requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;membershipSize&quot;)
-<span class="fc" id="L66">  private long membershipSize = 0;</span>
+  private long membershipSize = 0;
 
   /**
    * Instantiates a new status.
@@ -72,12 +75,11 @@ public class Status implements Serializable {
    * @param ownedGroupSize the owned group size
    * @param membershipSize the membership size
    */
-<span class="pc" id="L75">  @Builder(toBuilder = true)</span>
-  @SuppressWarnings(&quot;unused&quot;)
-<span class="fc" id="L77">  public Status(long maxOwnedGroups, long ownedGroupSize, long membershipSize) {</span>
-<span class="fc" id="L78">    this.maxOwnedGroups = maxOwnedGroups;</span>
-<span class="fc" id="L79">    this.ownedGroupSize = ownedGroupSize;</span>
-<span class="fc" id="L80">    this.membershipSize = membershipSize;</span>
-<span class="fc" id="L81">  }</span>
+  @Builder(toBuilder = true)
+<span class="fc" id="L79">  public Status(long maxOwnedGroups, long ownedGroupSize, long membershipSize) {</span>
+<span class="fc" id="L80">    this.maxOwnedGroups = maxOwnedGroups;</span>
+<span class="fc" id="L81">    this.ownedGroupSize = ownedGroupSize;</span>
+<span class="fc" id="L82">    this.membershipSize = membershipSize;</span>
+<span class="fc" id="L83">  }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

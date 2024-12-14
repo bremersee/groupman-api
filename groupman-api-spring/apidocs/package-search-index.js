@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.bremersee.groupman.api"},{"l":"org.bremersee.groupman.mock"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.bremersee.groupman.api"},{"l":"org.bremersee.groupman.mock"}];updateSearchResults();
