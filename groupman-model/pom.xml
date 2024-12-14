@@ -7,7 +7,7 @@
   <parent>
     <artifactId>groupman-api</artifactId>
     <groupId>org.bremersee</groupId>
-    <version>2.1.1</version>
+    <version>3.0.0</version>
   </parent>
 
   <artifactId>groupman-model</artifactId>
@@ -17,8 +17,16 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.bremersee</groupId>
-      <artifactId>common-model</artifactId>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
     </dependency>
 
     <dependency>

@@ -41,9 +41,10 @@ class GroupIdListTest {
     expected.add(value);
     GroupIdList actual = new GroupIdList(Collections.singleton(value));
     assertEquals(expected, actual);
+    //noinspection EqualsWithItself
     assertEquals(actual, actual);
-    assertNotEquals(actual, null);
-    assertNotEquals(actual, new Object());
+    assertNotEquals(null, actual);
+    assertNotEquals(new Object(), actual);
 
     assertTrue(actual.toString().contains(value));
   }

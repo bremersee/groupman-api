@@ -4,13 +4,14 @@ pipeline {
   }
   environment {
     CODECOV_TOKEN = credentials('groupman-api-codecov-token')
+    TEST = true
     DEPLOY = true
     SNAPSHOT_SITE = true
     RELEASE_SITE = true
     DEPLOY_FEATURE = true
   }
   tools {
-    jdk 'jdk11'
+    jdk 'jdk17'
     maven 'm3'
   }
   options {
@@ -25,9 +26,7 @@ pipeline {
     }
     stage('Test') {
       when {
-        not {
-          branch 'feature/*'
-        }
+        environment name: 'TEST', value: 'true'
       }
       steps {
         sh 'mvn -B clean test'
@@ -35,8 +34,9 @@ pipeline {
       post {
         always {
           junit '**/surefire-reports/*.xml'
-          jacoco(
-              execPattern: '**/coverage-reports/*.exec'
+          recordCoverage(
+              tools: [[parser: 'JACOCO', pattern: '**/coverage-reports/*.exec']],
+              sourceCodeRetention: 'LAST_BUILD'
           )
         }
       }
@@ -47,7 +47,8 @@ pipeline {
           environment name: 'DEPLOY', value: 'true'
           anyOf {
             branch 'develop'
-            branch 'master'
+            branch 'main'
+            branch 'bugfix/*'
           }
         }
       }
@@ -58,8 +59,12 @@ pipeline {
     stage('Snapshot Site') {
       when {
         allOf {
-          branch 'develop'
           environment name: 'SNAPSHOT_SITE', value: 'true'
+          anyOf {
+            branch 'develop'
+            branch 'feature/*'
+            branch 'bugfix/*'
+          }
         }
       }
       steps {
@@ -74,7 +79,7 @@ pipeline {
     stage('Release Site') {
       when {
         allOf {
-          branch 'master'
+          branch 'main'
           environment name: 'RELEASE_SITE', value: 'true'
         }
       }
@@ -96,14 +101,6 @@ pipeline {
       }
       steps {
         sh 'mvn -B -P feature,allow-features clean deploy'
-      }
-      post {
-        always {
-          junit '**/surefire-reports/*.xml'
-          jacoco(
-              execPattern: '**/coverage-reports/*.exec'
-          )
-        }
       }
     }
   }
