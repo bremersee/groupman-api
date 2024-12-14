@@ -7,12 +7,12 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>3.2.0-SNAPSHOT</version>
+    <version>3.1.2</version>
     <relativePath/>
   </parent>
 
   <artifactId>groupman-api</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.0.0</version>
   <packaging>pom</packaging>
 
   <name>groupman-api</name>
@@ -29,7 +29,7 @@
     <github.repo>groupman-api</github.repo>
     <!--suppress UnresolvedMavenProperty -->
     <gh-pages-staging-dir>${maven.multiModuleProjectDirectory}/target/staging</gh-pages-staging-dir>
-    <lib-bundle.version>0.2.0-SNAPSHOT</lib-bundle.version>
+    <lib-bundle.version>0.1.1</lib-bundle.version>
   </properties>
 
   <scm>
