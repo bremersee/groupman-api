@@ -39,7 +39,7 @@ pipeline {
       //         sourceCodeRetention: 'LAST_BUILD'
       //     )
       //   }
-      }
+      // }
     }
     stage('Deploy') {
       when {
