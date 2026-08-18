@@ -10,6 +10,11 @@ info:
 servers:
   - url: http://localhost:8080
     description: Generated server url
+tags:
+  - name: group-manager
+    description: RESTful group service API.
+  - name: user-manager
+    description: RESTful user service API.
 paths:
   /api/groups/{groupId}/members/{userId}:
     put:
