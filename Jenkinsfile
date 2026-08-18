@@ -1,17 +1,17 @@
 pipeline {
   agent {
-    label 'maven'
+    label 'jdk21 && maven'
   }
   environment {
     CODECOV_TOKEN = credentials('groupman-api-codecov-token')
     TEST = true
-    DEPLOY = true
-    SNAPSHOT_SITE = true
-    RELEASE_SITE = true
+    DEPLOY = false
+    SNAPSHOT_SITE = false
+    RELEASE_SITE = false
     DEPLOY_FEATURE = false
   }
   tools {
-    jdk 'jdk17'
+    jdk 'jdk21'
     maven 'm3'
   }
   options {

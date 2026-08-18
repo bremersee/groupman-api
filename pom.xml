@@ -7,12 +7,12 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>3.2.0-SNAPSHOT</version>
+    <version>6.0.3</version>
     <relativePath/>
   </parent>
 
   <artifactId>groupman-api</artifactId>
-  <version>3.1.0-SNAPSHOT</version>
+  <version>4.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>groupman-api</name>
@@ -29,8 +29,33 @@
     <github.repo>groupman-api</github.repo>
     <!--suppress UnresolvedMavenProperty -->
     <gh-pages-staging-dir>${maven.multiModuleProjectDirectory}/target/staging</gh-pages-staging-dir>
-    <lib-bundle.version>0.2.0-SNAPSHOT</lib-bundle.version>
   </properties>
+
+  <developers>
+    <developer>
+      <id>bremersee</id>
+      <name>Christian Bremer</name>
+      <organization>bremersee.org</organization>
+      <organizationUrl>https://bremersee.org</organizationUrl>
+      <email>christian@bremersee.org</email>
+      <timezone>Europe/Berlin</timezone>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <organization>
+    <name>bremersee.org</name>
+    <url>https://bremersee.org</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
 
   <scm>
     <connection>scm:git:ssh://git@github.com:bremersee/groupman-api.git</connection>
@@ -60,13 +85,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>org.bremersee</groupId>
-        <artifactId>lib-bundle</artifactId>
-        <version>${lib-bundle.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <dependency>
         <groupId>org.bremersee</groupId>
         <artifactId>groupman-model</artifactId>

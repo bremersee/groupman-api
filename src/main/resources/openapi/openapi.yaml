@@ -1,0 +1,649 @@
+openapi: 3.1.0
+info:
+  title: Group Manager API
+  description: RESTful service for group manager application.
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 4.0.0-SNAPSHOT
+  summary: A group manager.
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /api/groups/{groupId}/members/{userId}:
+    put:
+      tags:
+        - group-manager
+      description: Add member.
+      operationId: addMember
+      parameters:
+        - name: groupId
+          in: path
+          description: The ID of the group.
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: path
+          description: The ID of the user (member).
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+        - bearer-jwt: []
+    delete:
+      tags:
+        - group-manager
+      description: Remove member.
+      operationId: removeMember
+      parameters:
+        - name: groupId
+          in: path
+          description: The ID of the group.
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: path
+          description: The ID of the user (member).
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+        - bearer-jwt: []
+  /api/groups/{groupId}:
+    get:
+      tags:
+        - group-manager
+      description: Get group.
+      operationId: getGroup
+      parameters:
+        - name: groupId
+          in: path
+          description: The ID of the group.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+        - bearer-jwt: []
+    put:
+      tags:
+        - group-manager
+      description: Update group.
+      operationId: updateGroup
+      parameters:
+        - name: groupId
+          in: path
+          description: The ID of the group.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GroupUpdate"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+        - bearer-jwt: []
+    delete:
+      tags:
+        - group-manager
+      description: Delete group.
+      operationId: deleteGroup
+      parameters:
+        - name: groupId
+          in: path
+          description: The ID of the group.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+        - bearer-jwt: []
+  /api/groups:
+    get:
+      tags:
+        - group-manager
+      description: Get groups.
+      operationId: getGroups
+      parameters:
+        - name: search
+          in: query
+          description: A String contained in name or description.
+          required: false
+          schema:
+            type: string
+        - name: first
+          in: query
+          description: Pagination offset.
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: max
+          in: query
+          description: Maximum results size (defaults to 100).
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Group"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+        - bearer-jwt: []
+    post:
+      tags:
+        - group-manager
+      description: Create group.
+      operationId: createGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GroupCreate"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Group"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+        - bearer-jwt: []
+  /api/users:
+    get:
+      tags:
+        - user-manager
+      description: Find users.
+      operationId: findUsers
+      parameters:
+        - name: search
+          in: query
+          description: "A String contained in username, first or last name, or email.\
+          \ Default search behavior is prefix-based (e.g., foo or foo*). Use *foo*\
+          \ for infix search and \"foo\" for exact search."
+          required: true
+          schema:
+            type: string
+        - name: first
+          in: query
+          description: Pagination offset.
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: max
+          in: query
+          description: Maximum results size (defaults to 100).
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+        - bearer-jwt: []
+  /api/groups/{groupId}/members:
+    get:
+      tags:
+        - group-manager
+      description: Get members.
+      operationId: getMembers
+      parameters:
+        - name: groupId
+          in: path
+          description: The ID of the group.
+          required: true
+          schema:
+            type: string
+        - name: first
+          in: query
+          description: Pagination offset.
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: max
+          in: query
+          description: Maximum results size (defaults to 100).
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RestApiException"
+      security:
+        - bearer-jwt: []
+components:
+  schemas:
+    Handler:
+      type: object
+      description: The handler where the exception occurred.
+      properties:
+        className:
+          type: string
+          description: The class name of the handler.
+        methodName:
+          type: string
+          description: The method name of the handler.
+        methodParameterTypes:
+          type: array
+          description: The method parameters.
+          items:
+            type: string
+    RestApiException:
+      type: object
+      description: The serialized exception.
+      properties:
+        id:
+          type: string
+          description: The id of the exception.
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp.
+        status:
+          type: integer
+          format: int32
+          description: The http status code.
+        error:
+          type: string
+          description: The http error message.
+        errorCode:
+          type: string
+          description: A service specific error code.
+        errorCodeInherited:
+          type: boolean
+          description: Determines whether the error code is inherited from the cause
+            or not.
+        message:
+          type: string
+          description: A human-readable exception message.
+        exception:
+          type: string
+          description: The class name of the exception.
+        application:
+          type: string
+          description: The name of the application.
+        path:
+          type: string
+          description: The request path.
+        handler:
+          $ref: "#/components/schemas/Handler"
+          description: The handler.
+        stackTrace:
+          type: array
+          description: The stack trace.
+          items:
+            $ref: "#/components/schemas/StackTraceItem"
+        cause:
+          $ref: "#/components/schemas/RestApiException"
+          description: The cause.
+    StackTraceItem:
+      type: object
+      description: A stack trace element of an exception.
+      properties:
+        declaringClass:
+          type: string
+          description: The declaring class.
+        methodName:
+          type: string
+          description: The method name.
+        fileName:
+          type: string
+          description: The file name.
+        lineNumber:
+          type: integer
+          format: int32
+          description: The line number.
+    GroupUpdate:
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+      required:
+        - name
+    Group:
+      type: object
+      properties:
+        description:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+      required:
+        - id
+        - name
+    GroupCreate:
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+      required:
+        - name
+    User:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+        id:
+          type: string
+      required:
+        - id
+        - username
+  securitySchemes:
+    bearer-jwt:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://openid.bremersee.org/realms/eixe/protocol/openid-connect/auth
+          tokenUrl: https://openid.bremersee.org/realms/eixe/protocol/openid-connect/token
+          scopes:
+            openid: ""
