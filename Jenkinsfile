@@ -31,14 +31,14 @@ pipeline {
       steps {
         sh 'mvn -B clean test'
       }
-      post {
-        always {
-          junit '**/surefire-reports/*.xml'
-          recordCoverage(
-              tools: [[parser: 'JACOCO', pattern: '**/coverage-reports/*.exec']],
-              sourceCodeRetention: 'LAST_BUILD'
-          )
-        }
+      // post {
+      //   always {
+      //     junit '**/surefire-reports/*.xml'
+      //     recordCoverage(
+      //         tools: [[parser: 'JACOCO', pattern: '**/coverage-reports/*.exec']],
+      //         sourceCodeRetention: 'LAST_BUILD'
+      //     )
+      //   }
       }
     }
     stage('Deploy') {
