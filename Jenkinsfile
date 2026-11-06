@@ -5,10 +5,9 @@ pipeline {
   environment {
     CODECOV_TOKEN = credentials('groupman-api-codecov-token')
     TEST = true
-    DEPLOY = false
-    SNAPSHOT_SITE = false
-    RELEASE_SITE = false
-    DEPLOY_FEATURE = false
+    DEPLOY = true
+    SITE = true
+    CLEAN = true
   }
   tools {
     jdk 'jdk21'
@@ -31,15 +30,15 @@ pipeline {
       steps {
         sh 'mvn -B clean test'
       }
-      // post {
-      //   always {
-      //     junit '**/surefire-reports/*.xml'
-      //     recordCoverage(
-      //         tools: [[parser: 'JACOCO', pattern: '**/coverage-reports/*.exec']],
-      //         sourceCodeRetention: 'LAST_BUILD'
-      //     )
-      //   }
-      // }
+      post {
+        always {
+          junit '**/surefire-reports/*.xml'
+          recordCoverage(
+              tools: [[parser: 'JACOCO', pattern: '**/coverage-reports/*.exec']],
+              sourceCodeRetention: 'LAST_BUILD'
+          )
+        }
+      }
     }
     stage('Deploy') {
       when {
@@ -48,27 +47,33 @@ pipeline {
           anyOf {
             branch 'develop'
             branch 'main'
-            branch 'bugfix/*'
           }
         }
       }
       steps {
-        sh 'mvn -B -P deploy clean deploy'
+        sh 'mvn -B -P build-system,deploy clean deploy'
       }
     }
-    stage('Snapshot Site') {
+    stage('Site') {
       when {
         allOf {
-          environment name: 'SNAPSHOT_SITE', value: 'true'
+          environment name: 'SITE', value: 'true'
           anyOf {
             branch 'develop'
-            branch 'feature/*'
-            branch 'bugfix/*'
+            branch 'main'
           }
         }
       }
       steps {
-        sh 'mvn -B clean site-deploy'
+        sh '''
+          mvn -B -P build-system,gh-pages-site site site:stage
+          git clone -b gh-pages git@github.com:bremersee/groupman-api.git target/gh-pages
+          cp -rf target/staging/* target/gh-pages
+          git -C target/gh-pages add .
+          git -C target/gh-pages commit -m "Maven site"
+          git -C target/gh-pages push
+          rm -rf target/gh-pages
+        '''
       }
       post {
         always {
@@ -76,31 +81,12 @@ pipeline {
         }
       }
     }
-    stage('Release Site') {
+    stage('Clean') {
       when {
-        allOf {
-          branch 'main'
-          environment name: 'RELEASE_SITE', value: 'true'
-        }
+        environment name: 'CLEAN', value: 'true'
       }
       steps {
-        sh 'mvn -B -P gh-pages-site clean site site:stage scm-publish:publish-scm'
-      }
-      post {
-        always {
-          sh 'curl -s https://codecov.io/bash | bash -s - -t ${CODECOV_TOKEN}'
-        }
-      }
-    }
-    stage('Deploy Feature') {
-      when {
-        allOf {
-          branch 'feature/*'
-          environment name: 'DEPLOY_FEATURE', value: 'true'
-        }
-      }
-      steps {
-        sh 'mvn -B -P feature,allow-features clean deploy'
+        sh 'mvn -B clean'
       }
     }
   }
