@@ -30,15 +30,16 @@ pipeline {
       steps {
         sh 'mvn -B clean test'
       }
-      post {
-        always {
-          junit '**/surefire-reports/*.xml'
-          recordCoverage(
-              tools: [[parser: 'JACOCO', pattern: '**/coverage-reports/*.exec']],
-              sourceCodeRetention: 'LAST_BUILD'
-          )
-        }
-      }
+      // Currently, there are no tests
+      //post {
+      //  always {
+      //    junit '**/surefire-reports/*.xml'
+      //    recordCoverage(
+      //        tools: [[parser: 'JACOCO', pattern: '**/coverage-reports/*.exec']],
+      //        sourceCodeRetention: 'LAST_BUILD'
+      //    )
+      //  }
+      //}
     }
     stage('Deploy') {
       when {
@@ -75,11 +76,12 @@ pipeline {
           rm -rf target/gh-pages
         '''
       }
-      post {
-        always {
-          sh 'curl -s https://codecov.io/bash | bash -s - -t ${CODECOV_TOKEN}'
-        }
-      }
+      // Currently, there are no tests
+      //post {
+      //  always {
+      //    sh 'curl -s https://codecov.io/bash | bash -s - -t ${CODECOV_TOKEN}'
+      //  }
+      //}
     }
     stage('Clean') {
       when {
