@@ -52,7 +52,14 @@ pipeline {
         }
       }
       steps {
-        sh 'mvn -B -P build-system,sign -DskipTests clean deploy'
+        withCredentials([
+          usernamePassword(
+            credentialsId: 'maven-gpg-key',
+            usernameVariable: 'MAVEN_GPG_KEYNAME',
+            passwordVariable: 'MAVEN_GPG_PASSPHRASE')
+        ]) {
+          sh 'mvn -B -P build-system,sign -DskipTests clean deploy'
+        }
       }
     }
     stage('Site') {
