@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"org.bremersee.groupman.api.web","l":"GroupManagerApi"},{"p":"org.bremersee.groupman.api.web","l":"UserManagerApi"}];updateSearchResults();
