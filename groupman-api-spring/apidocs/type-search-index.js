@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"org.bremersee.groupman.api","l":"GroupAdminControllerApi"},{"p":"org.bremersee.groupman.mock","l":"GroupAdminControllerMock"},{"p":"org.bremersee.groupman.api","l":"GroupControllerApi"},{"p":"org.bremersee.groupman.mock","l":"GroupControllerMock"}];updateSearchResults();
