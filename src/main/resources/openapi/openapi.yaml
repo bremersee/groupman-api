@@ -636,9 +636,9 @@ components:
           type: string
         lastName:
           type: string
-        username:
-          type: string
         id:
+          type: string
+        username:
           type: string
       required:
       - id
