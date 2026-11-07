@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>6.1.4</version>
+    <version>6.1.5</version>
     <relativePath/>
   </parent>
 
@@ -30,6 +30,29 @@
     <!--suppress UnresolvedMavenProperty -->
     <gh-pages-staging-dir>${maven.multiModuleProjectDirectory}/target/staging</gh-pages-staging-dir>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>bremersee-releases</id>
+      <url>https://mvn-repo.eixe.bremersee.org/releases</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>bremersee-snapshots</id>
+      <url>https://mvn-repo.eixe.bremersee.org/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
   <developers>
     <developer>
@@ -71,16 +94,14 @@
   </issueManagement>
 
   <distributionManagement>
+    <repository>
+      <id>bremersee-releases</id>
+      <url>https://mvn-repo.eixe.bremersee.org/releases</url>
+    </repository>
     <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <id>bremersee-snapshots</id>
+      <url>https://mvn-repo.eixe.bremersee.org/snapshots</url>
     </snapshotRepository>
-    <site>
-      <id>bremersee-sites</id>
-      <url>
-        dav:https://nexus.bremersee.org/repository/maven-sites/groupman-api/${project.version}
-      </url>
-    </site>
   </distributionManagement>
 
   <dependencyManagement>

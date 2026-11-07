@@ -52,7 +52,7 @@ pipeline {
         }
       }
       steps {
-        sh 'mvn -B -P build-system,deploy clean deploy'
+        sh 'mvn -B -P build-system,sign -DskipTests clean deploy'
       }
     }
     stage('Site') {
