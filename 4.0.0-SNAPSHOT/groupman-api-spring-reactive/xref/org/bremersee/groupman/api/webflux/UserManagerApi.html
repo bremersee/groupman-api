@@ -43,7 +43,7 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> java.util.Optional;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> jakarta.annotation.Generated;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  @Generated(value = <span class="jxr_string">"org.openapitools.codegen.languages.SpringCodegen"</span>, date = <span class="jxr_string">"2026-11-08T13:56:07.988271215+01:00[Europe/Berlin]"</span>, comments = <span class="jxr_string">"Generator version: 7.26.0"</span>)
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  @Generated(value = <span class="jxr_string">"org.openapitools.codegen.languages.SpringCodegen"</span>, date = <span class="jxr_string">"2026-11-14T02:55:13.433756081+01:00[Europe/Berlin]"</span>, comments = <span class="jxr_string">"Generator version: 7.26.0"</span>)
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  @Validated
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  @Tag(name = <span class="jxr_string">"user-manager"</span>, description = <span class="jxr_string">"RESTful user service API."</span>)
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a name="UserManagerApi" href="../../../../../org/bremersee/groupman/api/webflux/UserManagerApi.html#UserManagerApi">UserManagerApi</a> {
@@ -84,22 +84,23 @@
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>              })
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          },
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          security = {
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>              @SecurityRequirement(name = <span class="jxr_string">"bearer-jwt"</span>)
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>          }
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>      )
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>      @RequestMapping(
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          method = RequestMethod.GET,
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>          value = UserManagerApi.PATH_FIND_USERS,
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>          produces = { <span class="jxr_string">"application/json"</span> }
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      )
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      @ResponseStatus(HttpStatus.OK)
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      Flux&lt;User&gt; findUsers(
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>          @NotNull @Parameter(name = <span class="jxr_string">"search"</span>, description = <span class="jxr_string">"A String contained in username, first or last name, or email. Default search behavior is prefix-based (e.g., foo or foo*). Use *foo* for infix search and \&quot;foo\&quot; for exact search."</span>, required = <strong class="jxr_keyword">true</strong>, in = ParameterIn.QUERY) @Valid @RequestParam(value = <span class="jxr_string">"search"</span>, required = <strong class="jxr_keyword">true</strong>) String search,
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          @Parameter(name = <span class="jxr_string">"first"</span>, description = <span class="jxr_string">"Pagination offset."</span>, in = ParameterIn.QUERY) @Valid @RequestParam(value = <span class="jxr_string">"first"</span>, required = false) @Nullable Integer first,
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>          @Parameter(name = <span class="jxr_string">"max"</span>, description = <span class="jxr_string">"Maximum results size (defaults to 100)."</span>, in = ParameterIn.QUERY) @Valid @RequestParam(value = <span class="jxr_string">"max"</span>, required = false) @Nullable Integer max
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      );
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>  }
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>              @SecurityRequirement(name = <span class="jxr_string">"bearer-jwt"</span>),
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>              @SecurityRequirement(name = <span class="jxr_string">"basic-auth"</span>)
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          }
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>      )
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      @RequestMapping(
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          method = RequestMethod.GET,
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          value = UserManagerApi.PATH_FIND_USERS,
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          produces = { <span class="jxr_string">"application/json"</span> }
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      )
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      @ResponseStatus(HttpStatus.OK)
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      Flux&lt;User&gt; findUsers(
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          @NotNull @Parameter(name = <span class="jxr_string">"search"</span>, description = <span class="jxr_string">"A String contained in username, first or last name, or email. Default search behavior is prefix-based (e.g., foo or foo*). Use *foo* for infix search and \&quot;foo\&quot; for exact search."</span>, required = <strong class="jxr_keyword">true</strong>, in = ParameterIn.QUERY) @Valid @RequestParam(value = <span class="jxr_string">"search"</span>, required = <strong class="jxr_keyword">true</strong>) String search,
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          @Parameter(name = <span class="jxr_string">"first"</span>, description = <span class="jxr_string">"Pagination offset."</span>, in = ParameterIn.QUERY) @Valid @RequestParam(value = <span class="jxr_string">"first"</span>, required = false) @Nullable Integer first,
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>          @Parameter(name = <span class="jxr_string">"max"</span>, description = <span class="jxr_string">"Maximum results size (defaults to 100)."</span>, in = ParameterIn.QUERY) @Valid @RequestParam(value = <span class="jxr_string">"max"</span>, required = false) @Nullable Integer max
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      );
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2019–2026 <a href="https://bremersee.org">bremersee.org</a></div>
