@@ -18,9 +18,7 @@
   <publishDate position="right" format="yyyy-MM-dd HH:mm:ss z" />
 
   <body>
-    <menu name="Parent Module">
-      <item name="${project.parent.name}" href="../index.html" />
-    </menu>
+    <menu name="Modules" ref="modules" />
     <menu name="Reports" ref="reports" />
     <footer><![CDATA[<p>&copy;${project.inceptionYear} ${project.organization.name}</p>]]></footer>
   </body>
