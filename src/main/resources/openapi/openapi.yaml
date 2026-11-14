@@ -70,6 +70,7 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
     delete:
       tags:
       - group-manager
@@ -123,6 +124,7 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
   /api/groups/{groupId}:
     get:
       tags:
@@ -175,6 +177,7 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
     put:
       tags:
       - group-manager
@@ -232,6 +235,7 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
     delete:
       tags:
       - group-manager
@@ -279,6 +283,7 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
   /api/groups:
     get:
       tags:
@@ -341,6 +346,7 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
     post:
       tags:
       - group-manager
@@ -385,6 +391,7 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
   /api/users:
     get:
       tags:
@@ -449,6 +456,7 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
   /api/groups/{groupId}/members:
     get:
       tags:
@@ -517,6 +525,7 @@ paths:
                 $ref: "#/components/schemas/RestApiException"
       security:
       - bearer-jwt: []
+      - basic-auth: []
 components:
   schemas:
     Handler:
@@ -652,3 +661,7 @@ components:
           tokenUrl: https://openid.bremersee.org/realms/eixe/protocol/openid-connect/token
           scopes:
             openid: ""
+    basic-auth:
+      type: http
+      in: header
+      scheme: basic
