@@ -1,0 +1,3 @@
+org.bremersee.groupman.api.model
+org.bremersee.groupman.api.web
+org.bremersee.groupman.api.webflux
