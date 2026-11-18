@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.bremersee</groupId>
+    <artifactId>groupman-api</artifactId>
+    <version>4.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>groupman-api-typescript</artifactId>
+
+  <name>groupman-api-typescript</name>
+  <description>Generates TypeScript of Groupman API and model</description>
+
+  <properties>
+  </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>${openapi-generator.version}</version>
+        <executions>
+          <execution>
+            <id>generate-typescript-angular</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <!-- see https://openapi-generator.tech/docs/generators/typescript-angular/ -->
+            <configuration>
+              <skipValidateSpec>true</skipValidateSpec>
+              <inputSpec>${project.parent.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+              <generatorName>typescript-angular</generatorName>
+              <generateSupportingFiles>true</generateSupportingFiles>
+              <generateApis>true</generateApis>
+              <generateApiTests>true</generateApiTests>
+              <generateApiDocumentation>true</generateApiDocumentation>
+              <generateModels>true</generateModels>
+              <generateModelTests>false</generateModelTests>
+              <generateModelDocumentation>true</generateModelDocumentation>
+              <gitHost>github.com</gitHost>
+              <gitUserId>bremersee</gitUserId>
+              <gitRepoId>groupman-api-typescript-angular</gitRepoId>
+              <output>target/typescript-angular</output>
+              <configOptions>
+                <npmName>groupman-api-typescript-angular</npmName>
+                <npmVersion>${project.version}</npmVersion>
+                <npmRepository>https://npm.eixe.bremersee.org</npmRepository>
+                <licenseName>Apache License, Version 2.0</licenseName>
+                <apiModulePrefix>Groupman</apiModulePrefix>
+                <configurationPrefix>Groupman</configurationPrefix>
+                <enumNameSuffix>Groupman</enumNameSuffix>
+                <modelFileSuffix>Groupman</modelFileSuffix>
+                <modelSuffix>Groupman</modelSuffix>
+                <serviceFileSuffix>Groupman</serviceFileSuffix>
+                <serviceSuffix>Groupman</serviceSuffix>
+                <withInterfaces>true</withInterfaces>
+              </configOptions>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-typescript-axios</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <!-- see https://openapi-generator.tech/docs/generators/typescript-axios/ -->
+            <configuration>
+              <skipValidateSpec>true</skipValidateSpec>
+              <inputSpec>${project.parent.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+              <generatorName>typescript-axios</generatorName>
+              <generateSupportingFiles>true</generateSupportingFiles>
+              <generateApis>true</generateApis>
+              <generateApiTests>true</generateApiTests>
+              <generateApiDocumentation>true</generateApiDocumentation>
+              <generateModels>true</generateModels>
+              <generateModelTests>false</generateModelTests>
+              <generateModelDocumentation>true</generateModelDocumentation>
+              <gitHost>github.com</gitHost>
+              <gitUserId>bremersee</gitUserId>
+              <gitRepoId>groupman-api-typescript-axios</gitRepoId>
+              <output>target/typescript-axios</output>
+              <configOptions>
+                <npmName>groupman-api-typescript-axios</npmName>
+                <npmVersion>${project.version}</npmVersion>
+                <npmRepository>https://npm.eixe.bremersee.org</npmRepository>
+                <licenseName>Apache License, Version 2.0</licenseName>
+                <apiPackage>org.bremersee.groupman.api</apiPackage>
+                <modelPackage>org.bremersee.groupman.model</modelPackage>
+                <withSeparateModelsAndApi>true</withSeparateModelsAndApi>
+                <withInterfaces>true</withInterfaces>
+                <enumNameSuffix>Groupman</enumNameSuffix>
+              </configOptions>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

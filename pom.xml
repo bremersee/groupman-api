@@ -23,7 +23,7 @@
     <module>groupman-model</module>
     <module>groupman-api-spring</module>
     <module>groupman-api-spring-reactive</module>
-    <module>groupman-api-typescript-angular</module>
+    <module>groupman-api-typescript</module>
   </modules>
 
   <properties>
